@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useTheme } from '../context/ThemeContext';
 import { tasksAPI } from '../api/tasksAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import StatCard from '../components/StatCard';
@@ -35,6 +36,7 @@ import { formatDate, isOverdue, getDaysUntilDue } from '../utils/helpers';
 const DashboardPage = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const { theme } = useTheme();
   const [stats, setStats] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -113,7 +115,8 @@ const DashboardPage = () => {
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white"
+                  style={{ color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#111827' }}>
                 Tableau de bord
               </h1>
               {user?.role === 'admin' && (
@@ -122,7 +125,8 @@ const DashboardPage = () => {
                 </span>
               )}
             </div>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400"
+               style={{ color: document.documentElement.classList.contains('dark') ? '#d1d5db' : '#4b5563' }}>
               Bienvenue {user?.fullName || user?.username} ! {user?.role === 'admin' 
                 ? 'Voici un aperçu de toutes les tâches.' 
                 : 'Voici un aperçu de vos tâches académiques.'
@@ -169,20 +173,31 @@ const DashboardPage = () => {
         {stats && stats.total > 0 && (
           <Card>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Progression globale</h3>
-              <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+                Progression globale
+              </h3>
+              <span className="text-2xl font-bold text-primary-600 dark:text-primary-400"
+                    style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }}>
                 {Math.round((stats.completed / stats.total) * 100)}%
               </span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4"
+                 style={{ backgroundColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${(stats.completed / stats.total) * 100}%` }}
                 transition={{ duration: 1, ease: "easeOut" }}
                 className="bg-gradient-to-r from-primary-500 to-primary-600 h-4 rounded-full"
+                style={{ 
+                  background: theme === 'dark' 
+                    ? 'linear-gradient(to right, #4ade80, #22c55e)' 
+                    : 'linear-gradient(to right, #22c55e, #16a34a)'
+                }}
               />
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2"
+               style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
               {stats.completed} tâches terminées sur {stats.total}
             </p>
           </Card>
@@ -193,21 +208,24 @@ const DashboardPage = () => {
           {/* Tâches par matière */}
           {subjectData.length > 0 && (
             <Card>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tâches par matière</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+                Tâches par matière
+              </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={subjectData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                  <XAxis dataKey="name" stroke="#9ca3af" />
-                  <YAxis stroke="#9ca3af" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={theme === 'dark' ? '#374151' : '#e5e7eb'} />
+                  <XAxis dataKey="name" stroke={theme === 'dark' ? '#d1d5db' : '#4b5563'} />
+                  <YAxis stroke={theme === 'dark' ? '#d1d5db' : '#4b5563'} />
                   <Tooltip 
                     contentStyle={{ 
-                      backgroundColor: '#1f2937', 
-                      border: '1px solid #374151',
+                      backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff', 
+                      border: `1px solid ${theme === 'dark' ? '#374151' : '#e5e7eb'}`,
                       borderRadius: '0.5rem',
-                      color: '#fff'
+                      color: theme === 'dark' ? '#ffffff' : '#111827'
                     }}
                   />
-                  <Bar dataKey="taches" fill="#16a34a" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="taches" fill={theme === 'dark' ? '#4ade80' : '#16a34a'} radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -216,7 +234,10 @@ const DashboardPage = () => {
           {/* Répartition par priorité */}
           {priorityData.length > 0 && (
             <Card>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Répartition par priorité</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+                Répartition par priorité
+              </h3>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
@@ -235,10 +256,10 @@ const DashboardPage = () => {
                   </Pie>
                   <Tooltip 
                     contentStyle={{ 
-                      backgroundColor: '#1f2937', 
-                      border: '1px solid #374151',
+                      backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff', 
+                      border: `1px solid ${theme === 'dark' ? '#374151' : '#e5e7eb'}`,
                       borderRadius: '0.5rem',
-                      color: '#fff'
+                      color: theme === 'dark' ? '#ffffff' : '#111827'
                     }}
                   />
                 </PieChart>
@@ -251,8 +272,14 @@ const DashboardPage = () => {
         {urgentTasks.length > 0 && (
           <Card>
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tâches urgentes</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">À faire dans les 3 prochains jours</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+                Tâches urgentes
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1"
+                 style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
+                À faire dans les 3 prochains jours
+              </p>
             </div>
             <div className="space-y-3">
               {urgentTasks.map((task) => (
@@ -261,10 +288,18 @@ const DashboardPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   className="flex items-center justify-between p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg"
+                  style={{
+                    backgroundColor: theme === 'dark' ? 'rgba(234, 88, 12, 0.2)' : '#fff7ed',
+                    borderColor: theme === 'dark' ? '#9a3412' : '#fed7aa'
+                  }}
                 >
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">{task.title}</p>
-                    <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    <p className="font-medium text-gray-900 dark:text-white"
+                       style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+                      {task.title}
+                    </p>
+                    <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400"
+                         style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
                       <span>{task.subject}</span>
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
@@ -272,7 +307,11 @@ const DashboardPage = () => {
                       </span>
                     </div>
                   </div>
-                  <span className="px-3 py-1 bg-orange-200 dark:bg-orange-800 text-orange-800 dark:text-orange-400 text-sm font-medium rounded-full">
+                  <span className="px-3 py-1 bg-orange-200 dark:bg-orange-800 text-orange-800 dark:text-orange-400 text-sm font-medium rounded-full"
+                        style={{
+                          backgroundColor: theme === 'dark' ? '#9a3412' : '#fed7aa',
+                          color: theme === 'dark' ? '#fdba74' : '#9a3412'
+                        }}>
                     {getDaysUntilDue(task.dueDate)} jour{getDaysUntilDue(task.dueDate) > 1 ? 's' : ''}
                   </span>
                 </motion.div>

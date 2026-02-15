@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 
 const ThemeDebug = () => {
   const { theme } = useTheme();
+  
+  // Log pour forcer le re-render
+  console.log('🎨 ThemeDebug render avec theme:', theme);
   const [htmlClasses, setHtmlClasses] = useState('');
 
   useEffect(() => {

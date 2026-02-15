@@ -28,18 +28,25 @@ const DashboardLayout = ({ children }) => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors"
          style={{ 
            backgroundColor: theme === 'dark' ? '#111827' : '#f9fafb',
-           color: theme === 'dark' ? '#f3f4f6' : '#111827'
+           color: theme === 'dark' ? '#ffffff' : '#111827'
          }}>
       {/* Sidebar */}
       <aside className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 shadow-lg transition-colors"
-             style={{ backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff' }}>
+             style={{ 
+               backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+               color: theme === 'dark' ? '#ffffff' : '#111827'
+             }}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center gap-2 px-6 py-6 border-b dark:border-gray-700">
-            <BookOpen className="w-8 h-8 text-primary-600 dark:text-primary-500" />
+          <div className="flex items-center gap-2 px-6 py-6 border-b dark:border-gray-700"
+               style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
+            <BookOpen className="w-8 h-8 text-primary-600 dark:text-primary-500" 
+                      style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }} />
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">MyStudyPlanner</h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Gestion académique</p>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>MyStudyPlanner</h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400"
+                 style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>Gestion académique</p>
             </div>
           </div>
 
@@ -54,6 +61,14 @@ const DashboardLayout = ({ children }) => {
                     ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-medium'
                     : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }`}
+                style={{
+                  backgroundColor: isActive(item.href) 
+                    ? (theme === 'dark' ? 'rgba(34, 197, 94, 0.2)' : '#f0fdf4')
+                    : 'transparent',
+                  color: isActive(item.href)
+                    ? (theme === 'dark' ? '#4ade80' : '#15803d')
+                    : (theme === 'dark' ? '#d1d5db' : '#4b5563')
+                }}
               >
                 <item.icon className="w-5 h-5" />
                 {item.name}
@@ -62,7 +77,8 @@ const DashboardLayout = ({ children }) => {
           </nav>
 
           {/* User section */}
-          <div className="border-t dark:border-gray-700 p-4 space-y-2">
+          <div className="border-t dark:border-gray-700 p-4 space-y-2"
+               style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
             <Link
               to="/profile"
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
@@ -75,10 +91,12 @@ const DashboardLayout = ({ children }) => {
                 <User className="w-5 h-5 text-primary-600 dark:text-primary-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate"
+                   style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                   {user?.fullName || user?.username}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate"
+                   style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>{user?.email}</p>
                 {user?.role && (
                   <div className="flex items-center gap-1 mt-1">
                     {user.role === 'admin' ? (

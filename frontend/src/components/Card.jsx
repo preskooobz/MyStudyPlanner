@@ -8,7 +8,7 @@ const Card = ({ children, className, hover = false, ...props }) => {
   const cardStyle = {
     backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
     borderColor: theme === 'dark' ? '#374151' : '#e5e7eb',
-    color: theme === 'dark' ? '#f3f4f6' : '#111827'
+    color: theme === 'dark' ? '#ffffff' : '#111827'
   };
   
   if (hover) {
