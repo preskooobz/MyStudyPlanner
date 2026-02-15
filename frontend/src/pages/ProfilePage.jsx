@@ -4,7 +4,6 @@ import { User, Mail, Lock, Save, Shield, GraduationCap, Edit2 } from 'lucide-rea
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { useTheme } from '../context/ThemeContext';
-import { usersAPI } from '../api/usersAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -49,26 +48,31 @@ const ProfilePage = () => {
     setLoading(true);
 
     try {
-      const response = await usersAPI.updateUser(user.id, profileData);
+      // Mise à jour locale (sans API)
+      const updatedUser = { 
+        ...user, 
+        name: profileData.fullName || profileData.username,
+        email: profileData.email 
+      };
       
-      if (response.success) {
-        toast.success('Profil mis à jour avec succès !', 'Succès');
-        setIsEditing(false);
-        
-        // Mettre à jour le localStorage avec les nouvelles données
-        const updatedUser = { ...user, ...response.user };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-        
-        // Recharger la page pour mettre à jour le contexte
-        window.location.reload();
-      } else {
-        toast.error(response.message || 'Erreur lors de la mise à jour du profil', 'Erreur');
+      // Mettre à jour le localStorage
+      localStorage.setItem('mystudyplanner_current_user', JSON.stringify(updatedUser));
+      
+      // Mettre à jour aussi dans la liste des utilisateurs
+      const users = JSON.parse(localStorage.getItem('mystudyplanner_users') || '[]');
+      const userIndex = users.findIndex(u => u.id === user.id);
+      if (userIndex !== -1) {
+        users[userIndex] = { ...users[userIndex], name: updatedUser.name, email: updatedUser.email };
+        localStorage.setItem('mystudyplanner_users', JSON.stringify(users));
       }
+      
+      toast.success('Profil mis à jour avec succès !', 'Succès');
+      setIsEditing(false);
+      
+      // Recharger la page pour mettre à jour le contexte
+      window.location.reload();
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Erreur lors de la mise à jour du profil',
-        'Erreur'
-      );
+      toast.error('Erreur lors de la mise à jour du profil', 'Erreur');
       console.error(error);
     } finally {
       setLoading(false);
@@ -91,27 +95,31 @@ const ProfilePage = () => {
     setLoading(true);
 
     try {
-      const response = await usersAPI.updatePassword(user.id, {
-        currentPassword: passwordData.currentPassword,
-        newPassword: passwordData.newPassword,
-      });
+      // Vérifier le mot de passe actuel
+      const users = JSON.parse(localStorage.getItem('mystudyplanner_users') || '[]');
+      const currentUser = users.find(u => u.id === user.id);
       
-      if (response.success) {
-        toast.success('Mot de passe modifié avec succès !', 'Succès');
-        setIsChangingPassword(false);
-        setPasswordData({
-          currentPassword: '',
-          newPassword: '',
-          confirmPassword: '',
-        });
-      } else {
-        toast.error(response.message || 'Erreur lors du changement de mot de passe', 'Erreur');
+      if (!currentUser || currentUser.password !== passwordData.currentPassword) {
+        toast.error('Mot de passe actuel incorrect', 'Erreur');
+        setLoading(false);
+        return;
       }
+      
+      // Mettre à jour le mot de passe
+      currentUser.password = passwordData.newPassword;
+      const userIndex = users.findIndex(u => u.id === user.id);
+      users[userIndex] = currentUser;
+      localStorage.setItem('mystudyplanner_users', JSON.stringify(users));
+      
+      toast.success('Mot de passe modifié avec succès !', 'Succès');
+      setIsChangingPassword(false);
+      setPasswordData({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      });
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Erreur lors du changement de mot de passe',
-        'Erreur'
-      );
+      toast.error('Erreur lors du changement de mot de passe', 'Erreur');
       console.error(error);
     } finally {
       setLoading(false);
