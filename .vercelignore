@@ -1,0 +1,12 @@
+# Vercel ignore
+node_modules
+backend
+.git
+.gitignore
+*.log
+.env
+.DS_Store
+README.md
+DOCKER.md
+docker-compose.yml
+backend/
