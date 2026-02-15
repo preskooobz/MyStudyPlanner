@@ -1,3 +1,6 @@
 node_modules/
 *.log
 .env
+
+# Base de données de développement (données temporaires)
+data/db.json
