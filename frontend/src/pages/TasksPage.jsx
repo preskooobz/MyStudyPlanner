@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, ListTodo } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useTheme } from '../context/ThemeContext';
 import { tasksAPI } from '../api/tasksAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import TaskCard from '../components/tasks/TaskCard';
@@ -14,6 +15,7 @@ import Button from '../components/ui/Button';
 const TasksPage = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -134,16 +136,22 @@ const TasksPage = () => {
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 {user.role === 'admin' ? 'Toutes les Tâches' : 'Mes Tâches'}
               </h1>
               {user.role === 'admin' && (
-                <span className="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">
+                <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-sm font-medium rounded-full"
+                      style={{
+                        backgroundColor: theme === 'dark' ? 'rgba(147, 51, 234, 0.2)' : '#f3e8ff',
+                        color: theme === 'dark' ? '#c084fc' : '#7c3aed'
+                      }}>
                   Vue Administrateur
                 </span>
               )}
             </div>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400"
+               style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
               {user.role === 'admin' 
                 ? 'Gérez toutes les tâches des étudiants' 
                 : 'Gérez vos devoirs, TP et projets académiques'
@@ -165,12 +173,19 @@ const TasksPage = () => {
 
         {/* Task List */}
         {filteredTasks.length === 0 ? (
-          <div className="card text-center py-16">
-            <ListTodo className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <div className="card text-center py-16"
+               style={{
+                 backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+                 borderColor: theme === 'dark' ? '#374151' : '#e5e7eb'
+               }}>
+            <ListTodo className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                      style={{ color: theme === 'dark' ? '#9ca3af' : '#9ca3af' }} />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2"
+                style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
               {tasks.length === 0 ? 'Aucune tâche' : 'Aucun résultat'}
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-6"
+               style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
               {tasks.length === 0
                 ? 'Commencez par créer votre première tâche'
                 : 'Essayez de modifier vos filtres'}

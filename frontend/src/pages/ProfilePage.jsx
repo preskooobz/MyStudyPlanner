@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { User, Mail, Lock, Save, Shield, GraduationCap, Edit2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useTheme } from '../context/ThemeContext';
 import { usersAPI } from '../api/usersAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import Card from '../components/Card';
@@ -12,6 +13,7 @@ import Button from '../components/ui/Button';
 const ProfilePage = () => {
   const { user, login } = useAuth();
   const { toast } = useToast();
+  const { theme } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -119,14 +121,22 @@ const ProfilePage = () => {
   const getRoleBadge = () => {
     if (user?.role === 'admin') {
       return (
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full"
+             style={{
+               backgroundColor: theme === 'dark' ? 'rgba(147, 51, 234, 0.2)' : '#f3e8ff',
+               color: theme === 'dark' ? '#c084fc' : '#7c3aed'
+             }}>
           <Shield className="w-4 h-4" />
           <span className="font-medium">Administrateur</span>
         </div>
       );
     }
     return (
-      <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full">
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full"
+           style={{
+             backgroundColor: theme === 'dark' ? 'rgba(34, 197, 94, 0.2)' : '#dcfce7',
+             color: theme === 'dark' ? '#4ade80' : '#16a34a'
+           }}>
         <GraduationCap className="w-4 h-4" />
         <span className="font-medium">Étudiant</span>
       </div>
@@ -138,8 +148,10 @@ const ProfilePage = () => {
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Mon Profil</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold text-gray-900"
+              style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>Mon Profil</h1>
+          <p className="text-gray-600 mt-1"
+             style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
             Gérez vos informations personnelles et votre sécurité
           </p>
         </div>
@@ -152,14 +164,20 @@ const ProfilePage = () => {
           <Card>
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center">
-                  <User className="w-10 h-10 text-primary-600" />
+                <div className="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center"
+                     style={{
+                       backgroundColor: theme === 'dark' ? 'rgba(34, 197, 94, 0.2)' : '#dcfce7'
+                     }}>
+                  <User className="w-10 h-10 text-primary-600"
+                        style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold text-gray-900"
+                      style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                     {user?.fullName || user?.username}
                   </h2>
-                  <p className="text-gray-600 mt-1">{user?.email}</p>
+                  <p className="text-gray-600 mt-1"
+                     style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>{user?.email}</p>
                   <div className="mt-3">{getRoleBadge()}</div>
                 </div>
               </div>
@@ -179,7 +197,8 @@ const ProfilePage = () => {
               <form onSubmit={handleProfileSubmit} className="space-y-4 border-t pt-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2"
+                           style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                       Nom d'utilisateur
                     </label>
                     <Input
@@ -191,7 +210,8 @@ const ProfilePage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2"
+                           style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                       Nom complet
                     </label>
                     <Input
@@ -204,7 +224,8 @@ const ProfilePage = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2"
+                         style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                     Email
                   </label>
                   <Input
@@ -243,24 +264,37 @@ const ProfilePage = () => {
                 </div>
               </form>
             ) : (
-              <div className="border-t pt-6 space-y-4">
+              <div className="border-t pt-6 space-y-4"
+                   style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                      <User className="w-5 h-5 text-gray-600" />
+                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center"
+                         style={{
+                           backgroundColor: theme === 'dark' ? '#374151' : '#f3f4f6'
+                         }}>
+                      <User className="w-5 h-5 text-gray-600"
+                            style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Nom d'utilisateur</p>
-                      <p className="font-medium text-gray-900">{user?.username}</p>
+                      <p className="text-sm text-gray-500"
+                         style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>Nom d'utilisateur</p>
+                      <p className="font-medium text-gray-900"
+                         style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>{user?.username}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-gray-600" />
+                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center"
+                         style={{
+                           backgroundColor: theme === 'dark' ? '#374151' : '#f3f4f6'
+                         }}>
+                      <Mail className="w-5 h-5 text-gray-600"
+                            style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Email</p>
-                      <p className="font-medium text-gray-900">{user?.email}</p>
+                      <p className="text-sm text-gray-500"
+                         style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>Email</p>
+                      <p className="font-medium text-gray-900"
+                         style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>{user?.email}</p>
                     </div>
                   </div>
                 </div>
@@ -278,14 +312,20 @@ const ProfilePage = () => {
           <Card>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center">
-                  <Lock className="w-5 h-5 text-red-600" />
+                <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center"
+                     style={{
+                       backgroundColor: theme === 'dark' ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2'
+                     }}>
+                  <Lock className="w-5 h-5 text-red-600"
+                        style={{ color: theme === 'dark' ? '#f87171' : '#dc2626' }} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-gray-900"
+                      style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                     Sécurité
                   </h3>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600"
+                     style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
                     Modifiez votre mot de passe
                   </p>
                 </div>
@@ -301,9 +341,11 @@ const ProfilePage = () => {
             </div>
 
             {isChangingPassword && (
-              <form onSubmit={handlePasswordSubmit} className="space-y-4 border-t pt-6">
+              <form onSubmit={handlePasswordSubmit} className="space-y-4 border-t pt-6"
+                    style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2"
+                         style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                     Mot de passe actuel
                   </label>
                   <Input
@@ -316,7 +358,8 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2"
+                         style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                     Nouveau mot de passe
                   </label>
                   <Input
@@ -329,7 +372,8 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2"
+                         style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                     Confirmer le mot de passe
                   </label>
                   <Input

@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, X, Check, AlertCircle, Clock, Trash2 } from 'lucide-react';
 import { useNotifications } from '../context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
 const NotificationCenter = () => {
+  const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { 
     notifications, 
@@ -86,10 +88,16 @@ const NotificationCenter = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 border border-gray-200 dark:border-gray-700"
+              style={{
+                backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+                borderColor: theme === 'dark' ? '#374151' : '#e5e7eb'
+              }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
+              <div className="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700"
+                   style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
+                <h3 className="font-semibold text-gray-900 dark:text-white"
+                    style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                   Notifications {unreadCount > 0 && `(${unreadCount})`}
                 </h3>
                 <div className="flex items-center gap-2">
@@ -98,6 +106,7 @@ const NotificationCenter = () => {
                       <button
                         onClick={markAllAsRead}
                         className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
+                        style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }}
                         title="Marquer tout comme lu"
                       >
                         <Check size={18} />
@@ -105,6 +114,7 @@ const NotificationCenter = () => {
                       <button
                         onClick={clearAll}
                         className="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                        style={{ color: theme === 'dark' ? '#f87171' : '#dc2626' }}
                         title="Tout supprimer"
                       >
                         <Trash2 size={18} />
@@ -114,6 +124,7 @@ const NotificationCenter = () => {
                   <button
                     onClick={() => setIsOpen(false)}
                     className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}
                   >
                     <X size={18} />
                   </button>
@@ -123,7 +134,8 @@ const NotificationCenter = () => {
               {/* Notifications List */}
               <div className="max-h-96 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                  <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400"
+                       style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                     <Bell size={48} className="mx-auto mb-2 opacity-30" />
                     <p>Aucune notification</p>
                   </div>
@@ -138,6 +150,11 @@ const NotificationCenter = () => {
                         className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors ${
                           !notification.read ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                         }`}
+                        style={{
+                          backgroundColor: !notification.read
+                            ? (theme === 'dark' ? 'rgba(59, 130, 246, 0.2)' : '#eff6ff')
+                            : 'transparent'
+                        }}
                       >
                         <div className="flex items-start gap-3">
                           <div className="flex-shrink-0 mt-1">
@@ -150,10 +167,12 @@ const NotificationCenter = () => {
                             <p className={`text-sm font-medium ${getPriorityColor(notification.priority)}`}>
                               {notification.title}
                             </p>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                            <p className="text-sm text-gray-700 dark:text-gray-300 mt-1"
+                               style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
                               {notification.message}
                             </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1"
+                               style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                               {new Date(notification.createdAt).toLocaleDateString('fr-FR', {
                                 day: '2-digit',
                                 month: 'short',
@@ -168,6 +187,7 @@ const NotificationCenter = () => {
                               deleteNotification(notification.id);
                             }}
                             className="flex-shrink-0 text-gray-400 hover:text-red-600 dark:hover:text-red-400"
+                            style={{ color: theme === 'dark' ? '#9ca3af' : '#9ca3af' }}
                             title="Supprimer"
                           >
                             <X size={16} />

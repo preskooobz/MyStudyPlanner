@@ -2,8 +2,10 @@ import { useState } from 'react';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import Button from '../ui/Button';
+import { useTheme } from '../../context/ThemeContext';
 
 const TaskForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState(initialData || {
     title: '',
     description: '',
@@ -84,7 +86,8 @@ const TaskForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
       />
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 mb-2"
+               style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
           Description
         </label>
         <textarea
@@ -93,12 +96,18 @@ const TaskForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
           onChange={handleChange}
           rows={4}
           className="input-field resize-none"
+          style={{
+            backgroundColor: theme === 'dark' ? '#111827' : '#ffffff',
+            borderColor: theme === 'dark' ? '#374151' : '#d1d5db',
+            color: theme === 'dark' ? '#ffffff' : '#111827'
+          }}
           placeholder="Décrivez votre tâche..."
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 mb-2"
+               style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
           Matière *
         </label>
         <select
@@ -106,16 +115,30 @@ const TaskForm = ({ initialData, onSubmit, onCancel, isLoading }) => {
           value={formData.subject}
           onChange={handleChange}
           className={`input-field ${errors.subject ? 'border-red-500' : ''}`}
+          style={{
+            backgroundColor: theme === 'dark' ? '#111827' : '#ffffff',
+            borderColor: errors.subject ? (theme === 'dark' ? '#f87171' : '#dc2626') : (theme === 'dark' ? '#374151' : '#d1d5db'),
+            color: theme === 'dark' ? '#ffffff' : '#111827'
+          }}
         >
-          <option value="">Sélectionner une matière</option>
+          <option value=""
+                  style={{
+                    backgroundColor: theme === 'dark' ? '#111827' : '#ffffff',
+                    color: theme === 'dark' ? '#ffffff' : '#111827'
+                  }}>Sélectionner une matière</option>
           {subjects.map((subject) => (
-            <option key={subject} value={subject}>
+            <option key={subject} value={subject}
+                    style={{
+                      backgroundColor: theme === 'dark' ? '#111827' : '#ffffff',
+                      color: theme === 'dark' ? '#ffffff' : '#111827'
+                    }}>
               {subject}
             </option>
           ))}
         </select>
         {errors.subject && (
-          <p className="mt-1 text-sm text-red-600">{errors.subject}</p>
+          <p className="mt-1 text-sm text-red-600"
+             style={{ color: theme === 'dark' ? '#f87171' : '#dc2626' }}>{errors.subject}</p>
         )}
       </div>
 

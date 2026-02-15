@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Edit } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
+import { useTheme } from '../context/ThemeContext';
 import { tasksAPI } from '../api/tasksAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import TaskForm from '../components/tasks/TaskForm';
@@ -12,6 +13,7 @@ const EditTaskPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { toast } = useToast();
+  const { theme } = useTheme();
   const [task, setTask] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -67,7 +69,8 @@ const EditTaskPage = () => {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"
+               style={{ borderColor: theme === 'dark' ? '#4ade80' : '#16a34a' }}></div>
         </div>
       </DashboardLayout>
     );
@@ -91,8 +94,10 @@ const EditTaskPage = () => {
             Retour
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Modifier la Tâche</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-3xl font-bold text-gray-900"
+                style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>Modifier la Tâche</h1>
+            <p className="text-gray-600 mt-1"
+               style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
               Modifiez les informations de votre tâche
             </p>
           </div>
@@ -105,10 +110,16 @@ const EditTaskPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="card"
+            style={{
+              backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+              borderColor: theme === 'dark' ? '#374151' : '#e5e7eb'
+            }}
           >
             <div className="flex items-center gap-2 mb-6">
-              <Edit className="w-6 h-6 text-primary-600" />
-              <h2 className="text-xl font-semibold text-gray-900">
+              <Edit className="w-6 h-6 text-primary-600"
+                    style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }} />
+              <h2 className="text-xl font-semibold text-gray-900"
+                  style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 Modifier les informations
               </h2>
             </div>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useTheme } from '../context/ThemeContext';
 import { BookOpen, LogIn, UserPlus } from 'lucide-react';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -11,6 +12,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { login, register } = useAuth();
   const { toast } = useToast();
+  const { theme } = useTheme();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   
@@ -60,23 +62,38 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50 flex items-center justify-center p-4"
+         style={{
+           background: theme === 'dark' 
+             ? 'linear-gradient(to bottom right, #111827, #1f2937, #111827)'
+             : 'linear-gradient(to bottom right, #dcfce7, #ffffff, #dcfce7)'
+         }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="card">
+        <div className="card"
+             style={{
+               backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+               borderColor: theme === 'dark' ? '#374151' : '#e5e7eb'
+             }}>
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <div className="p-3 bg-primary-100 rounded-full">
-                <BookOpen className="w-10 h-10 text-primary-600" />
+              <div className="p-3 bg-primary-100 rounded-full"
+                   style={{
+                     backgroundColor: theme === 'dark' ? 'rgba(34, 197, 94, 0.2)' : '#dcfce7'
+                   }}>
+                <BookOpen className="w-10 h-10 text-primary-600"
+                          style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }} />
               </div>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-bold text-gray-900 mb-2"
+                style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
               MyStudyPlanner
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600"
+               style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
               {isLogin ? 'Connectez-vous à votre compte' : 'Créez votre compte étudiant'}
             </p>
           </div>
@@ -147,10 +164,10 @@ const LoginPage = () => {
             <button
               onClick={() => {
                 setIsLogin(!isLogin);
-                setError('');
                 setFormData({ username: '', email: '', password: '', fullName: '' });
               }}
               className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+              style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }}
             >
               {isLogin ? "Pas de compte ? S'inscrire" : "Déjà un compte ? Se connecter"}
             </button>
