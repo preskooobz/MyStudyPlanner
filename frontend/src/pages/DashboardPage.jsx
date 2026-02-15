@@ -7,8 +7,6 @@ import { tasksAPI } from '../api/tasksAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import StatCard from '../components/StatCard';
 import Card from '../components/Card';
-import ThemeToggle from '../components/ThemeToggle';
-import NotificationCenter from '../components/NotificationCenter';
 import { 
   ListTodo, 
   CheckCircle, 
@@ -112,33 +110,25 @@ const DashboardPage = () => {
     <DashboardLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white"
-                  style={{ color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#111827' }}>
-                Tableau de bord
-              </h1>
-              {user?.role === 'admin' && (
-                <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-sm font-medium rounded-full">
-                  Vue Administrateur
-                </span>
-              )}
-            </div>
-            <p className="text-gray-600 dark:text-gray-400"
-               style={{ color: document.documentElement.classList.contains('dark') ? '#d1d5db' : '#4b5563' }}>
-              Bienvenue {user?.fullName || user?.username} ! {user?.role === 'admin' 
-                ? 'Voici un aperçu de toutes les tâches.' 
-                : 'Voici un aperçu de vos tâches académiques.'
-              }
-            </p>
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white"
+                style={{ color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#111827' }}>
+              Tableau de bord
+            </h1>
+            {user?.role === 'admin' && (
+              <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-sm font-medium rounded-full">
+                Vue Administrateur
+              </span>
+            )}
           </div>
-          
-          {/* Boutons Notification et Theme */}
-          <div className="flex items-center gap-3">
-            <NotificationCenter />
-            <ThemeToggle />
-          </div>
+          <p className="text-gray-600 dark:text-gray-400"
+             style={{ color: document.documentElement.classList.contains('dark') ? '#d1d5db' : '#4b5563' }}>
+            Bienvenue {user?.fullName || user?.username} ! {user?.role === 'admin' 
+              ? 'Voici un aperçu de toutes les tâches.' 
+              : 'Voici un aperçu de vos tâches académiques.'
+            }
+          </p>
         </div>
 
         {/* Stats Cards */}
