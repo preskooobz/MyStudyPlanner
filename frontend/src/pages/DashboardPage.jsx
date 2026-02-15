@@ -112,17 +112,17 @@ const DashboardPage = () => {
         {/* Header */}
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white"
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white"
                 style={{ color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#111827' }}>
               Tableau de bord
             </h1>
             {user?.role === 'admin' && (
-              <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-sm font-medium rounded-full">
+              <span className="px-2 sm:px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-xs sm:text-sm font-medium rounded-full">
                 Vue Administrateur
               </span>
             )}
           </div>
-          <p className="text-gray-600 dark:text-gray-400"
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400"
              style={{ color: document.documentElement.classList.contains('dark') ? '#d1d5db' : '#4b5563' }}>
             Bienvenue {user?.fullName || user?.username} ! {user?.role === 'admin' 
               ? 'Voici un aperçu de toutes les tâches.' 

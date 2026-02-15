@@ -87,16 +87,16 @@ const NotificationCenter = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 border border-gray-200 dark:border-gray-700"
+              className="absolute right-0 mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 border border-gray-200 dark:border-gray-700"
               style={{
                 backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
                 borderColor: theme === 'dark' ? '#374151' : '#e5e7eb'
               }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b dark:border-gray-700"
+              <div className="flex items-center justify-between px-3 sm:px-4 py-3 border-b dark:border-gray-700"
                    style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
-                <h3 className="font-semibold text-gray-900 dark:text-white"
+                <h3 className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white"
                     style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                   Notifications {unreadCount > 0 && `(${unreadCount})`}
                 </h3>
@@ -132,12 +132,12 @@ const NotificationCenter = () => {
               </div>
 
               {/* Notifications List */}
-              <div className="max-h-96 overflow-y-auto">
+              <div className="max-h-[60vh] sm:max-h-96 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400"
+                  <div className="px-3 sm:px-4 py-8 text-center text-gray-500 dark:text-gray-400"
                        style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
-                    <Bell size={48} className="mx-auto mb-2 opacity-30" />
-                    <p>Aucune notification</p>
+                    <Bell size={40} className="mx-auto mb-2 opacity-30" />
+                    <p className="text-sm">Aucune notification</p>
                   </div>
                 ) : (
                   <div className="divide-y dark:divide-gray-700">
@@ -147,7 +147,7 @@ const NotificationCenter = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors ${
+                        className={`px-3 sm:px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors ${
                           !notification.read ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                         }`}
                         style={{

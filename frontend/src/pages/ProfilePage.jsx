@@ -145,12 +145,12 @@ const ProfilePage = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900"
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900"
               style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>Mon Profil</h1>
-          <p className="text-gray-600 mt-1"
+          <p className="text-sm sm:text-base text-gray-600 mt-1"
              style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
             Gérez vos informations personnelles et votre sécurité
           </p>
@@ -162,40 +162,41 @@ const ProfilePage = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <Card>
-            <div className="flex items-start justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <div className="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center"
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0"
                      style={{
                        backgroundColor: theme === 'dark' ? 'rgba(34, 197, 94, 0.2)' : '#dcfce7'
                      }}>
-                  <User className="w-10 h-10 text-primary-600"
+                  <User className="w-8 h-8 sm:w-10 sm:h-10 text-primary-600"
                         style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900"
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900"
                       style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                     {user?.fullName || user?.username}
                   </h2>
-                  <p className="text-gray-600 mt-1"
+                  <p className="text-sm sm:text-base text-gray-600 mt-1"
                      style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>{user?.email}</p>
-                  <div className="mt-3">{getRoleBadge()}</div>
+                  <div className="mt-2 sm:mt-3">{getRoleBadge()}</div>
                 </div>
               </div>
               {!isEditing && (
                 <Button
                   variant="secondary"
                   onClick={() => setIsEditing(true)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 w-full sm:w-auto"
                 >
                   <Edit2 className="w-4 h-4" />
-                  Modifier
+                  <span className="sm:inline">Modifier</span>
                 </Button>
               )}
             </div>
 
             {isEditing ? (
-              <form onSubmit={handleProfileSubmit} className="space-y-4 border-t pt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <form onSubmit={handleProfileSubmit} className="space-y-4 border-t pt-6"
+                    style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2"
                            style={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}>
@@ -237,12 +238,12 @@ const ProfilePage = () => {
                     required
                   />
                 </div>
-                <div className="flex gap-3 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
                   <Button
                     type="submit"
                     variant="primary"
                     disabled={loading}
-                    className="flex items-center gap-2"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto"
                   >
                     <Save className="w-4 h-4" />
                     {loading ? 'Enregistrement...' : 'Enregistrer'}
@@ -258,6 +259,7 @@ const ProfilePage = () => {
                         fullName: user?.fullName || '',
                       });
                     }}
+                    className="w-full sm:w-auto"
                   >
                     Annuler
                   </Button>
@@ -266,7 +268,7 @@ const ProfilePage = () => {
             ) : (
               <div className="border-t pt-6 space-y-4"
                    style={{ borderColor: theme === 'dark' ? '#374151' : '#e5e7eb' }}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center"
                          style={{
@@ -310,9 +312,9 @@ const ProfilePage = () => {
           transition={{ delay: 0.1 }}
         >
           <Card>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center"
+                <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0"
                      style={{
                        backgroundColor: theme === 'dark' ? 'rgba(239, 68, 68, 0.2)' : '#fee2e2'
                      }}>
@@ -320,7 +322,7 @@ const ProfilePage = () => {
                         style={{ color: theme === 'dark' ? '#f87171' : '#dc2626' }} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900"
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900"
                       style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                     Sécurité
                   </h3>
@@ -334,6 +336,7 @@ const ProfilePage = () => {
                 <Button
                   variant="secondary"
                   onClick={() => setIsChangingPassword(true)}
+                  className="w-full sm:w-auto text-sm"
                 >
                   Changer le mot de passe
                 </Button>
@@ -385,12 +388,12 @@ const ProfilePage = () => {
                     required
                   />
                 </div>
-                <div className="flex gap-3 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
                   <Button
                     type="submit"
                     variant="primary"
                     disabled={loading}
-                    className="flex items-center gap-2"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto"
                   >
                     <Save className="w-4 h-4" />
                     {loading ? 'Modification...' : 'Modifier le mot de passe'}
@@ -406,6 +409,7 @@ const ProfilePage = () => {
                         confirmPassword: '',
                       });
                     }}
+                    className="w-full sm:w-auto"
                   >
                     Annuler
                   </Button>
@@ -422,27 +426,43 @@ const ProfilePage = () => {
           transition={{ delay: 0.2 }}
         >
           <Card>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4"
+                style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
               Informations du compte
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <p className="text-3xl font-bold text-primary-600">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-gray-50 rounded-lg"
+                   style={{
+                     backgroundColor: theme === 'dark' ? '#374151' : '#f9fafb'
+                   }}>
+                <p className="text-2xl sm:text-3xl font-bold text-primary-600"
+                   style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }}>
                   {user?.id}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">ID Utilisateur</p>
+                <p className="text-xs sm:text-sm text-gray-600 mt-1"
+                   style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>ID Utilisateur</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <p className="text-3xl font-bold text-primary-600">
+              <div className="text-center p-4 bg-gray-50 rounded-lg"
+                   style={{
+                     backgroundColor: theme === 'dark' ? '#374151' : '#f9fafb'
+                   }}>
+                <p className="text-2xl sm:text-3xl font-bold text-primary-600"
+                   style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }}>
                   {new Date(user?.createdAt).toLocaleDateString('fr-FR')}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">Membre depuis</p>
+                <p className="text-xs sm:text-sm text-gray-600 mt-1"
+                   style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>Membre depuis</p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <p className="text-3xl font-bold text-primary-600">
+              <div className="text-center p-4 bg-gray-50 rounded-lg"
+                   style={{
+                     backgroundColor: theme === 'dark' ? '#374151' : '#f9fafb'
+                   }}>
+                <p className="text-2xl sm:text-3xl font-bold text-primary-600"
+                   style={{ color: theme === 'dark' ? '#4ade80' : '#16a34a' }}>
                   {user?.role === 'admin' ? 'Admin' : 'Étudiant'}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">Rôle</p>
+                <p className="text-xs sm:text-sm text-gray-600 mt-1"
+                   style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>Rôle</p>
               </div>
             </div>
           </Card>
