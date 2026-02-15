@@ -100,13 +100,13 @@ const LoginPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-              label="Nom d'utilisateur"
+              label={isLogin ? "Nom d'utilisateur ou Email" : "Nom d'utilisateur"}
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
               required
-              placeholder="Entrez votre nom d'utilisateur"
+              placeholder={isLogin ? "admin ou admin@mystudyplanner.com" : "Entrez votre nom d'utilisateur"}
             />
 
             {!isLogin && (
@@ -172,14 +172,6 @@ const LoginPage = () => {
               {isLogin ? "Pas de compte ? S'inscrire" : "Déjà un compte ? Se connecter"}
             </button>
           </div>
-
-          {isLogin && (
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <p className="text-xs text-gray-600 mb-2">Comptes de test :</p>
-              <p className="text-xs text-gray-600">👤 admin / admin123</p>
-              <p className="text-xs text-gray-600">👤 etudiant / etudiant123</p>
-            </div>
-          )}
         </div>
       </motion.div>
     </div>

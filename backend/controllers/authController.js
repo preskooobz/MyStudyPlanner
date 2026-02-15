@@ -7,13 +7,14 @@ export const login = async (req, res) => {
     if (!username || !password) {
       return res.status(400).json({
         success: false,
-        message: 'Username et password requis'
+        message: 'Username/Email et password requis'
       });
     }
     
     const db = readDatabase();
+    // Accepter username OU email pour la connexion
     const user = db.users.find(
-      u => u.username === username && u.password === password
+      u => (u.username === username || u.email === username) && u.password === password
     );
     
     if (!user) {
