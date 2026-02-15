@@ -26,11 +26,8 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // Rediriger vers la page de connexion si non autorisé
-      localStorage.removeItem('user');
-      window.location.href = '/login';
-    }
+    // Ne pas rediriger automatiquement sur 401
+    // Laisser les composants gérer les erreurs
     return Promise.reject(error);
   }
 );

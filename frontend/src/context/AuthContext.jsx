@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }) => {
         const userFromCookie = getUserFromCookie();
         if (userFromCookie) {
           setUser(userFromCookie);
-          // Synchroniser avec localStorage pour compatibilité
           localStorage.setItem('user', JSON.stringify(userFromCookie));
           setLoading(false);
           return;
@@ -35,27 +34,15 @@ export const AuthProvider = ({ children }) => {
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser);
           setUser(parsedUser);
-          // Synchroniser avec le cookie
           saveUserToCookie(parsedUser);
           setLoading(false);
           return;
         }
 
-        // Vérifier auprès du serveur si l'utilisateur est toujours authentifié
-        try {
-          const response = await authAPI.checkAuth();
-          if (response.success && response.authenticated) {
-            setUser(response.user);
-            localStorage.setItem('user', JSON.stringify(response.user));
-            saveUserToCookie(response.user);
-          }
-        } catch (error) {
-          // Pas d'authentification active
-          console.log('No active authentication');
-        }
+        // Pas d'utilisateur stocké = pas connecté
+        setLoading(false);
       } catch (error) {
         console.error('Error initializing auth:', error);
-      } finally {
         setLoading(false);
       }
     };
