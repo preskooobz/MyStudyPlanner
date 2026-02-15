@@ -40,6 +40,10 @@ const StatCard = ({ title, value, icon: Icon, color = 'primary', trend }) => {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       className="card"
+      style={{
+        backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+        borderColor: theme === 'dark' ? '#374151' : '#e5e7eb'
+      }}
     >
       <div className="flex items-center justify-between">
         <div>
