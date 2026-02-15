@@ -13,8 +13,23 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://mystudyplanner.vercel.app',
+  'https://mystudyplanner-fxa1cezms-ngatses-projects-addf8dcf.vercel.app'
+];
+
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Permettre les requêtes sans origine (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200
 }));

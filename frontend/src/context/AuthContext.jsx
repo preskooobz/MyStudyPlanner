@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { authAPI } from '../api/authAPI';
+import { getUserFromCookie, saveUserToCookie, removeUserFromCookie } from '../utils/cookies';
 
 const AuthContext = createContext();
 
@@ -10,40 +12,46 @@ export const useAuth = () => {
   return context;
 };
 
-// Système d'authentification locale (localStorage uniquement)
-const AUTH_STORAGE_KEY = 'mystudyplanner_users';
-const CURRENT_USER_KEY = 'mystudyplanner_current_user';
-
-// Récupérer tous les utilisateurs enregistrés
-const getStoredUsers = () => {
-  const users = localStorage.getItem(AUTH_STORAGE_KEY);
-  return users ? JSON.parse(users) : [];
-};
-
-// Sauvegarder un nouvel utilisateur
-const saveUser = (user) => {
-  const users = getStoredUsers();
-  users.push(user);
-  localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(users));
-};
-
-// Trouver un utilisateur par email
-const findUserByEmail = (email) => {
-  const users = getStoredUsers();
-  return users.find(u => u.email === email);
-};
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Vérifier si un utilisateur est déjà connecté
+    // Vérifier si un utilisateur est déjà connecté via cookie ou localStorage
     const initAuth = async () => {
       try {
-        const storedUser = localStorage.getItem(CURRENT_USER_KEY);
+        // D'abord vérifier le cookie
+        const userFromCookie = getUserFromCookie();
+        if (userFromCookie) {
+          setUser(userFromCookie);
+          // Synchroniser avec localStorage pour compatibilité
+          localStorage.setItem('user', JSON.stringify(userFromCookie));
+          setLoading(false);
+          return;
+        }
+
+        // Sinon vérifier localStorage (fallback)
+        const storedUser = localStorage.getItem('user');
         if (storedUser) {
-          setUser(JSON.parse(storedUser));
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+          // Synchroniser avec le cookie
+          saveUserToCookie(parsedUser);
+          setLoading(false);
+          return;
+        }
+
+        // Vérifier auprès du serveur si l'utilisateur est toujours authentifié
+        try {
+          const response = await authAPI.checkAuth();
+          if (response.success && response.authenticated) {
+            setUser(response.user);
+            localStorage.setItem('user', JSON.stringify(response.user));
+            saveUserToCookie(response.user);
+          }
+        } catch (error) {
+          // Pas d'authentification active
+          console.log('No active authentication');
         }
       } catch (error) {
         console.error('Error initializing auth:', error);
@@ -56,99 +64,53 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const { email, password } = credentials;
-      
-      // Chercher l'utilisateur dans le localStorage
-      const foundUser = findUserByEmail(email);
-      
-      if (!foundUser) {
-        return { 
-          success: false, 
-          message: 'Aucun compte trouvé avec cet email' 
-        };
+      const response = await authAPI.login(credentials);
+      if (response.success && response.user) {
+        setUser(response.user);
+        // Sauvegarder dans localStorage et cookie
+        localStorage.setItem('user', JSON.stringify(response.user));
+        saveUserToCookie(response.user);
+        return { success: true };
       }
-      
-      if (foundUser.password !== password) {
-        return { 
-          success: false, 
-          message: 'Mot de passe incorrect' 
-        };
-      }
-      
-      // Connexion réussie - ne pas inclure le mot de passe dans la session
-      const userSession = {
-        id: foundUser.id,
-        name: foundUser.name,
-        email: foundUser.email,
-        role: foundUser.role || 'student',
-        createdAt: foundUser.createdAt
-      };
-      
-      setUser(userSession);
-      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(userSession));
-      
-      return { success: true };
+      return { success: false, message: response.message };
     } catch (error) {
       return { 
         success: false, 
-        message: 'Erreur de connexion' 
+        message: error.response?.data?.message || 'Erreur de connexion' 
       };
     }
   };
 
   const register = async (userData) => {
     try {
-      const { name, email, password } = userData;
-      
-      // Vérifier si l'email existe déjà
-      const existingUser = findUserByEmail(email);
-      if (existingUser) {
-        return { 
-          success: false, 
-          message: 'Un compte existe déjà avec cet email' 
-        };
+      const response = await authAPI.register(userData);
+      if (response.success && response.user) {
+        setUser(response.user);
+        // Sauvegarder dans localStorage et cookie
+        localStorage.setItem('user', JSON.stringify(response.user));
+        saveUserToCookie(response.user);
+        return { success: true };
       }
-      
-      // Créer le nouvel utilisateur
-      const newUser = {
-        id: Date.now().toString(),
-        name,
-        email,
-        password, // En production, il faudrait hasher le mot de passe
-        role: 'student',
-        createdAt: new Date().toISOString()
-      };
-      
-      // Sauvegarder dans le localStorage
-      saveUser(newUser);
-      
-      // Créer la session (sans le mot de passe)
-      const userSession = {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        role: newUser.role,
-        createdAt: newUser.createdAt
-      };
-      
-      setUser(userSession);
-      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(userSession));
-      
-      return { success: true };
+      return { success: false, message: response.message };
     } catch (error) {
       return { 
         success: false, 
-        message: 'Erreur d\'inscription' 
+        message: error.response?.data?.message || 'Erreur d\'inscription' 
       };
     }
   };
 
   const logout = async () => {
     try {
-      setUser(null);
-      localStorage.removeItem(CURRENT_USER_KEY);
+      // Appeler l'API pour supprimer le cookie côté serveur
+      await authAPI.logout();
     } catch (error) {
       console.error('Error during logout:', error);
+    } finally {
+      // Nettoyer côté client
+      setUser(null);
+      localStorage.removeItem('user');
+      removeUserFromCookie();
     }
   };
 
