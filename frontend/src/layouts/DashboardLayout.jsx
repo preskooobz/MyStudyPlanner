@@ -219,7 +219,7 @@ const DashboardLayout = ({ children }) => {
 
       {/* Main content */}
       <div className="lg:ml-64 pt-16 lg:pt-20" style={{ backgroundColor: theme === 'dark' ? '#111827' : '#f9fafb' }}>
-        <main className="p-4 md:p-6 lg:p-8 pb-20 lg:pb-8" style={{ 
+        <main className="p-4 md:p-6 lg:p-8 pb-16 lg:pb-8" style={{ 
           minHeight: '100vh',
           backgroundColor: theme === 'dark' ? '#111827' : '#f9fafb',
           color: theme === 'dark' ? '#f3f4f6' : '#111827'

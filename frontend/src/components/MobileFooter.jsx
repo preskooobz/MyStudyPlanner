@@ -1,34 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
-import { LayoutDashboard, ListTodo, User } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { GraduationCap } from 'lucide-react';
 
 const MobileFooter = () => {
   const { theme } = useTheme();
-  const location = useLocation();
-
-  const navigation = [
-    { 
-      name: 'Dashboard', 
-      href: '/dashboard', 
-      icon: LayoutDashboard,
-      label: 'Accueil'
-    },
-    { 
-      name: 'Tâches', 
-      href: '/tasks', 
-      icon: ListTodo,
-      label: 'Tâches'
-    },
-    { 
-      name: 'Profil', 
-      href: '/profile', 
-      icon: User,
-      label: 'Profil'
-    },
-  ];
-
-  const isActive = (path) => location.pathname === path;
 
   return (
     <motion.footer
@@ -44,60 +19,30 @@ const MobileFooter = () => {
         boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.1)'
       }}
     >
-      <nav className="flex items-center justify-around px-2 py-2 safe-area-bottom">
-        {navigation.map((item) => {
-          const Icon = item.icon;
-          const active = isActive(item.href);
-          
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className="flex flex-col items-center justify-center min-w-[70px] py-2 px-3 rounded-lg transition-all duration-200"
-              style={{
-                backgroundColor: active 
-                  ? (theme === 'dark' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(34, 197, 94, 0.1)')
-                  : 'transparent'
-              }}
-            >
-              <motion.div
-                whileTap={{ scale: 0.9 }}
-                className="relative"
-              >
-                <Icon 
-                  size={24}
-                  strokeWidth={active ? 2.5 : 2}
-                  style={{
-                    color: active
-                      ? (theme === 'dark' ? '#4ade80' : '#16a34a')
-                      : (theme === 'dark' ? '#9ca3af' : '#6b7280')
-                  }}
-                />
-                {active && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full"
-                    style={{
-                      backgroundColor: theme === 'dark' ? '#4ade80' : '#16a34a'
-                    }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                  />
-                )}
-              </motion.div>
-              <span
-                className="text-xs mt-1 font-medium transition-colors"
-                style={{
-                  color: active
-                    ? (theme === 'dark' ? '#4ade80' : '#16a34a')
-                    : (theme === 'dark' ? '#9ca3af' : '#6b7280')
-                }}
-              >
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
-      </nav>
+      <div className="flex items-center justify-center gap-2 px-4 py-3 safe-area-bottom">
+        <GraduationCap 
+          size={18}
+          style={{
+            color: theme === 'dark' ? '#4ade80' : '#16a34a'
+          }}
+        />
+        <span
+          className="text-sm font-medium"
+          style={{
+            color: theme === 'dark' ? '#9ca3af' : '#6b7280'
+          }}
+        >
+          MyStudyPlanner
+        </span>
+        <span
+          className="text-xs"
+          style={{
+            color: theme === 'dark' ? '#6b7280' : '#9ca3af'
+          }}
+        >
+          © 2026
+        </span>
+      </div>
     </motion.footer>
   );
 };
