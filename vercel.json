@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "mystudyplanner",
   "builds": [
     {
       "src": "frontend/package.json",
@@ -8,16 +7,6 @@
       "config": {
         "distDir": "dist"
       }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
     }
   ],
   "rewrites": [
