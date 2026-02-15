@@ -13,7 +13,8 @@ import {
   Clock, 
   AlertCircle,
   TrendingUp,
-  Calendar
+  Calendar,
+  User
 } from 'lucide-react';
 import { 
   BarChart, 
@@ -291,6 +292,12 @@ const DashboardPage = () => {
                     <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400"
                          style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
                       <span>{task.subject}</span>
+                      {user?.role === 'admin' && task.user && (
+                        <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
+                          <User className="w-3 h-3" />
+                          {task.user.fullName || task.user.username}
+                        </span>
+                      )}
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {formatDate(task.dueDate)}

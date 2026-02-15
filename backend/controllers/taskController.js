@@ -29,10 +29,25 @@ export const getAllTasks = async (req, res) => {
       );
     }
     
+    // Enrichir les tâches avec les informations de l'utilisateur
+    const enrichedTasks = tasks.map(task => {
+      const user = db.users.find(u => u.id === task.userId);
+      return {
+        ...task,
+        user: user ? {
+          id: user.id,
+          username: user.username,
+          fullName: user.fullName,
+          email: user.email,
+          role: user.role
+        } : null
+      };
+    });
+    
     res.json({
       success: true,
-      count: tasks.length,
-      tasks
+      count: enrichedTasks.length,
+      tasks: enrichedTasks
     });
   } catch (error) {
     res.status(500).json({

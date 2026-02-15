@@ -36,10 +36,10 @@ const TaskCard = ({ task, onEdit, onDelete, onToggleStatus, showUserId = false }
                 style={{ color: task.status === 'completed' ? '#9ca3af' : (theme === 'dark' ? '#ffffff' : '#111827') }}>
               {task.title}
             </h3>
-            {showUserId && (
-              <Badge className="bg-blue-100 text-blue-700 border-blue-200">
+            {showUserId && task.user && (
+              <Badge className="bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:border-blue-700">
                 <User className="w-3 h-3 mr-1" />
-                User #{task.userId}
+                {task.user.fullName || task.user.username}
               </Badge>
             )}
           </div>
