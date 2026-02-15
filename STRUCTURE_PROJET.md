@@ -1,23 +1,23 @@
-# 📁 Structure Complète du Projet MyStudyPlanner
+#  Structure Complète du Projet MyStudyPlanner
 
 ```
 MyStudyPlanner/
 │
-├── 📄 README.md                      # Documentation principale
-├── 📄 FICHE_TECHNIQUE.md             # Fiche technique détaillée
-├── 📄 GUIDE_DEMARRAGE.md             # Guide de démarrage rapide
-├── 📄 CHECKLIST_PRESENTATION.md      # Checklist pour la présentation
-├── 📄 .gitignore                     # Fichiers à ignorer par Git
-├── 📄 start.bat                      # Script de démarrage Windows
-├── 📄 package.json                   # Configuration workspace
+├──  README.md                      # Documentation principale
+├──  FICHE_TECHNIQUE.md             # Fiche technique détaillée
+├──  GUIDE_DEMARRAGE.md             # Guide de démarrage rapide
+├──  CHECKLIST_PRESENTATION.md      # Checklist pour la présentation
+├──  .gitignore                     # Fichiers à ignorer par Git
+├──  start.bat                      # Script de démarrage Windows
+├──  package.json                   # Configuration workspace
 │
-├── 📂 backend/                       # ⚙️ API REST (Node.js + Express)
+├── 📂 backend/                       #  API REST (Node.js + Express)
 │   │
-│   ├── 📄 package.json               # Dépendances backend
-│   ├── 📄 server.js                  # Point d'entrée serveur
-│   ├── 📄 .env                       # Variables d'environnement
-│   ├── 📄 .gitignore                 # Ignore backend
-│   ├── 📄 README.md                  # Documentation backend
+│   ├──  package.json               # Dépendances backend
+│   ├──  server.js                  # Point d'entrée serveur
+│   ├──  .env                       # Variables d'environnement
+│   ├──  .gitignore                 # Ignore backend
+│   ├──  README.md                  # Documentation backend
 │   │
 │   ├── 📂 controllers/               # Logique métier
 │   │   ├── authController.js         # Contrôleur auth (login/register)
@@ -37,40 +37,40 @@ MyStudyPlanner/
 │   └── 📂 data/                      # Base de données
 │       └── db.json                   # Fichier JSON (users + tasks)
 │
-└── 📂 frontend/                      # 🎨 Interface utilisateur (React)
+└── 📂 frontend/                      #  Interface utilisateur (React)
     │
-    ├── 📄 package.json               # Dépendances frontend
-    ├── 📄 vite.config.js             # Configuration Vite
-    ├── 📄 tailwind.config.js         # Configuration Tailwind CSS
-    ├── 📄 postcss.config.js          # Configuration PostCSS
-    ├── 📄 eslint.config.js           # Configuration ESLint
-    ├── 📄 index.html                 # HTML principal
-    ├── 📄 .gitignore                 # Ignore frontend
-    ├── 📄 README.md                  # Documentation frontend
+    ├──  package.json               # Dépendances frontend
+    ├──  vite.config.js             # Configuration Vite
+    ├──  tailwind.config.js         # Configuration Tailwind CSS
+    ├──  postcss.config.js          # Configuration PostCSS
+    ├──  eslint.config.js           # Configuration ESLint
+    ├──  index.html                 # HTML principal
+    ├──  .gitignore                 # Ignore frontend
+    ├──  README.md                  # Documentation frontend
     │
     ├── 📂 public/                    # Assets statiques
     │
     └── 📂 src/                       # Code source React
         │
-        ├── 📄 main.jsx               # Point d'entrée React
-        ├── 📄 App.jsx                # Composant racine + routing
-        ├── 📄 index.css              # Styles globaux (Tailwind)
+        ├──  main.jsx               # Point d'entrée React
+        ├──  App.jsx                # Composant racine + routing
+        ├──  index.css              # Styles globaux (Tailwind)
         │
-        ├── 📂 api/                   # 🌐 Gestion API
+        ├── 📂 api/                   #  Gestion API
         │   ├── axios.js              # Configuration Axios
         │   ├── authAPI.js            # Endpoints authentification
         │   └── tasksAPI.js           # Endpoints tâches
         │
-        ├── 📂 context/               # 🔄 Context API
+        ├── 📂 context/               #  Context API
         │   └── AuthContext.jsx       # Context authentification
         │
-        ├── 📂 routes/                # 🛣️ Configuration routes
+        ├── 📂 routes/                #  Configuration routes
         │   └── PrivateRoute.jsx      # Route protégée
         │
         ├── 📂 layouts/               # 📐 Layouts
         │   └── DashboardLayout.jsx   # Layout principal avec sidebar
         │
-        ├── 📂 pages/                 # 📄 Pages de l'application
+        ├── 📂 pages/                 #  Pages de l'application
         │   ├── LoginPage.jsx         # Page connexion
         │   ├── DashboardPage.jsx     # Dashboard (stats + graphiques)
         │   ├── TasksPage.jsx         # Liste des tâches
@@ -78,7 +78,7 @@ MyStudyPlanner/
         │   ├── EditTaskPage.jsx      # Modification tâche
         │   └── NotFoundPage.jsx      # Page 404
         │
-        ├── 📂 components/            # 🧩 Composants réutilisables
+        ├── 📂 components/            #  Composants réutilisables
         │   │
         │   ├── 📂 ui/                # Composants UI de base
         │   │   ├── Card.jsx          # Carte container
@@ -103,13 +103,13 @@ MyStudyPlanner/
         │   ├── StatCard.jsx          # (legacy)
         │   └── SearchBar.jsx         # Barre de recherche
         │
-        ├── 📂 utils/                 # 🛠️ Fonctions utilitaires
+        ├── 📂 utils/                 #  Fonctions utilitaires
         │   └── helpers.js            # Helpers (dates, couleurs, etc.)
         │
-        └── 📂 assets/                # 🎨 Images et ressources
+        └── 📂 assets/                #  Images et ressources
 ```
 
-## 📊 Statistiques du Projet
+##  Statistiques du Projet
 
 ### Backend
 - **Fichiers**: ~12 fichiers
@@ -130,7 +130,7 @@ MyStudyPlanner/
 - **Lignes de code**: ~3500+ lignes
 - **Technologies**: 15+
 
-## 🎯 Points d'Entrée
+##  Points d'Entrée
 
 ### Backend
 - **Fichier principal**: `backend/server.js`
@@ -142,7 +142,7 @@ MyStudyPlanner/
 - **Port**: 3000
 - **Commande**: `npm run dev`
 
-## 📦 Dépendances Principales
+##  Dépendances Principales
 
 ### Backend (5 packages)
 ```json
@@ -168,7 +168,7 @@ MyStudyPlanner/
 }
 ```
 
-## 🔑 Fichiers Clés à Connaître
+##  Fichiers Clés à Connaître
 
 ### Configuration
 1. `backend/.env` - Variables d'environnement
@@ -186,7 +186,7 @@ MyStudyPlanner/
 9. `frontend/src/pages/DashboardPage.jsx` - Dashboard principal
 10. `frontend/src/api/tasksAPI.js` - API client
 
-## 🎨 Composants Principaux
+##  Composants Principaux
 
 ### Layout
 - **DashboardLayout**: Layout avec sidebar + header
@@ -206,7 +206,7 @@ MyStudyPlanner/
 - **StatCard**: Carte de statistique
 - **TaskCard**: Carte de tâche
 
-## 🚀 Flux de Données
+##  Flux de Données
 
 ```
 User Action (Frontend)
@@ -228,7 +228,7 @@ State Update (React)
 UI Re-render
 ```
 
-## 📝 Routes de l'Application
+##  Routes de l'Application
 
 ### Frontend Routes
 ```
@@ -252,7 +252,7 @@ DELETE /api/tasks/:id
 GET    /api/tasks/stats/:userId
 ```
 
-## 💾 Base de Données
+##  Base de Données
 
 ### Structure
 ```json
@@ -266,7 +266,7 @@ GET    /api/tasks/stats/:userId
 }
 ```
 
-## 🎯 Architecture en Image
+##  Architecture en Image
 
 ```
 ┌─────────────────────────────────────────┐

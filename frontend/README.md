@@ -2,7 +2,7 @@
 
 Interface React moderne pour l'application MyStudyPlanner.
 
-## 🚀 Démarrage
+## Démarrage
 
 ```bash
 # Installer les dépendances
@@ -15,7 +15,7 @@ npm run dev
 npm run build
 ```
 
-## 📦 Technologies
+## Technologies
 
 - **React 19** - Framework UI
 - **React Router** - Navigation
@@ -25,7 +25,7 @@ npm run build
 - **Lucide React** - Icônes
 - **Axios** - Requêtes HTTP
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```
 frontend/
@@ -45,24 +45,24 @@ frontend/
 │   └── main.jsx         # Point d'entrée
 ```
 
-## 🎨 Fonctionnalités
+## Fonctionnalités
 
-- ✅ Authentification utilisateur
-- ✅ Dashboard avec statistiques
-- ✅ Gestion complète des tâches (CRUD)
-- ✅ Filtres et recherche
-- ✅ Graphiques interactifs
-- ✅ Animations fluides
-- ✅ Design responsive
-- ✅ Routes protégées
+- Authentification utilisateur
+- Dashboard avec statistiques
+- Gestion complète des tâches (CRUD)
+- Filtres et recherche
+- Graphiques interactifs
+- Animations fluides
+- Design responsive
+- Routes protégées
 
-## 🔧 Configuration
+## Configuration
 
 Le fichier `vite.config.js` est configuré pour proxy les requêtes API vers `http://localhost:5000`.
 
 Assurez-vous que le backend est démarré avant de lancer le frontend.
 
-## 🎯 Pages
+## Pages
 
 - `/login` - Connexion
 - `/dashboard` - Tableau de bord
@@ -70,7 +70,7 @@ Assurez-vous que le backend est démarré avant de lancer le frontend.
 - `/tasks/new` - Créer une tâche
 - `/tasks/edit/:id` - Modifier une tâche
 
-## 🎨 Design System
+## Design System
 
 ### Couleurs principales
 - Primary: Vert (#16a34a)

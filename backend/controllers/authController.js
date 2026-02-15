@@ -26,6 +26,14 @@ export const login = async (req, res) => {
     // Ne pas retourner le mot de passe
     const { password: _, ...userWithoutPassword } = user;
     
+    // Créer un cookie sécurisé avec les informations de l'utilisateur
+    res.cookie('user', JSON.stringify(userWithoutPassword), {
+      httpOnly: false, // Accessible depuis JavaScript pour faciliter l'usage
+      secure: process.env.NODE_ENV === 'production', // HTTPS en production
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000 // 24 heures
+    });
+    
     res.json({
       success: true,
       message: 'Connexion réussie',
@@ -81,6 +89,14 @@ export const register = async (req, res) => {
     
     const { password: _, ...userWithoutPassword } = newUser;
     
+    // Créer un cookie sécurisé avec les informations de l'utilisateur
+    res.cookie('user', JSON.stringify(userWithoutPassword), {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000 // 24 heures
+    });
+    
     res.status(201).json({
       success: true,
       message: 'Inscription réussie',
@@ -90,6 +106,52 @@ export const register = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Erreur lors de l\'inscription',
+      error: error.message
+    });
+  }
+};
+
+// Déconnexion - Supprime le cookie
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie('user');
+    res.json({
+      success: true,
+      message: 'Déconnexion réussie'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la déconnexion',
+      error: error.message
+    });
+  }
+};
+
+// Vérifier l'authentification via le cookie
+export const checkAuth = async (req, res) => {
+  try {
+    const userCookie = req.cookies.user;
+    
+    if (!userCookie) {
+      return res.status(401).json({
+        success: false,
+        message: 'Non authentifié',
+        authenticated: false
+      });
+    }
+    
+    const user = JSON.parse(userCookie);
+    
+    res.json({
+      success: true,
+      authenticated: true,
+      user
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la vérification de l\'authentification',
       error: error.message
     });
   }

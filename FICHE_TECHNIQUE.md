@@ -1,6 +1,6 @@
-# 🎓 Fiche Technique - MyStudyPlanner
+# Fiche Technique - MyStudyPlanner
 
-## 📋 Informations Générales
+## Informations Générales
 
 **Nom du projet**: MyStudyPlanner  
 **Type**: Application web de gestion académique  
@@ -10,7 +10,7 @@
 
 ---
 
-## 🏗️ Architecture Technique
+## Architecture Technique
 
 ### Type d'architecture
 - **Pattern**: MVC (Model-View-Controller)
@@ -43,7 +43,7 @@ mystudyplanner/
 
 ---
 
-## 💻 Stack Technologique
+## Stack Technologique
 
 ### Backend
 | Technologie | Version | Rôle |
@@ -72,7 +72,7 @@ mystudyplanner/
 
 ---
 
-## 🎯 Fonctionnalités Détaillées
+## Fonctionnalités Détaillées
 
 ### 1. Authentification
 **Type**: Simulée (localStorage)  
@@ -90,10 +90,10 @@ POST /api/auth/register
 
 ### 2. Gestion des Tâches
 **CRUD Complet**:
-- ✅ Create - Créer une tâche
-- ✅ Read - Lire/Lister les tâches
-- ✅ Update - Modifier une tâche
-- ✅ Delete - Supprimer une tâche
+- Create - Créer une tâche
+- Read - Lire/Lister les tâches
+- Update - Modifier une tâche
+- Delete - Supprimer une tâche
 
 **Attributs d'une tâche**:
 ```javascript
@@ -148,7 +148,7 @@ GET    /api/tasks/stats/:userId # Statistiques
 
 ---
 
-## 🎨 Design et UX
+## Design et UX
 
 ### Palette de couleurs
 ```css
@@ -175,7 +175,7 @@ Gray:      #6b7280 (Neutre)
 
 ---
 
-## 🔐 Sécurité et Validation
+## Sécurité et Validation
 
 ### Côté Backend
 - Validation des entrées (middleware)
@@ -189,11 +189,11 @@ Gray:      #6b7280 (Neutre)
 - Routes protégées (PrivateRoute)
 - Gestion des états de chargement
 
-**⚠️ Note**: Authentication simulée (pas de JWT/bcrypt)
+**ATTENTION**: Authentication simulée (pas de JWT/bcrypt)
 
 ---
 
-## 📊 Base de Données
+## Base de Données
 
 **Type**: JSON File Storage  
 **Fichier**: `backend/data/db.json`
@@ -206,17 +206,17 @@ Gray:      #6b7280 (Neutre)
 }
 ```
 
-**⚠️ Limitations**:
+**ATTENTION Limitations**:
 - Pas de relations complexes
 - Lecture/écriture synchrone
 - Pas de transactions
 - Fichier unique
 
-**💡 Alternative production**: MongoDB, PostgreSQL
+**Alternative production**: MongoDB, PostgreSQL
 
 ---
 
-## 🚢 Déploiement
+## Déploiement
 
 ### Backend
 **Options**:
@@ -244,7 +244,7 @@ NODE_ENV=production
 
 ---
 
-## 📈 Performance
+## Performance
 
 ### Optimisations Frontend
 - Code splitting avec React.lazy
@@ -259,7 +259,7 @@ NODE_ENV=production
 
 ---
 
-## 🧪 Tests (Non implémenté)
+## Tests (Non implémenté)
 
 ### Tests recommandés
 **Backend**:
@@ -273,7 +273,7 @@ NODE_ENV=production
 
 ---
 
-## 📚 Documentation API
+## Documentation API
 
 ### Format de réponse standard
 ```json
@@ -295,33 +295,33 @@ NODE_ENV=production
 
 ---
 
-## 🎓 Concepts Avancés Utilisés
+## Concepts Avancés Utilisés
 
 ### React
-- ✅ Hooks (useState, useEffect, useContext)
-- ✅ Context API (AuthContext)
-- ✅ Custom Hooks
-- ✅ React Router (navigation)
-- ✅ Conditional Rendering
-- ✅ Component Composition
+- Hooks (useState, useEffect, useContext)
+- Context API (AuthContext)
+- Custom Hooks
+- React Router (navigation)
+- Conditional Rendering
+- Component Composition
 
 ### JavaScript
-- ✅ ES6+ (arrow functions, destructuring, spread)
-- ✅ Async/Await
-- ✅ Promises
-- ✅ Array methods (map, filter, reduce)
-- ✅ Modules (import/export)
+- ES6+ (arrow functions, destructuring, spread)
+- Async/Await
+- Promises
+- Array methods (map, filter, reduce)
+- Modules (import/export)
 
 ### CSS
-- ✅ Flexbox
-- ✅ Grid
-- ✅ Animations CSS
-- ✅ Responsive design
-- ✅ Utility-first (Tailwind)
+- Flexbox
+- Grid
+- Animations CSS
+- Responsive design
+- Utility-first (Tailwind)
 
 ---
 
-## 🔄 Workflow de Développement
+## Workflow de Développement
 
 ### Installation
 ```bash
@@ -342,19 +342,19 @@ git push origin feature/nom-feature
 
 ---
 
-## 📝 Livrables
+## Livrables
 
-1. ✅ Code source complet (Frontend + Backend)
-2. ✅ README.md détaillé
-3. ✅ Documentation technique
-4. ✅ Base de données avec données de test
-5. ✅ Application fonctionnelle
-6. 📄 Rapport de projet (à rédiger)
-7. 🎤 Présentation (à préparer)
+1. Code source complet (Frontend + Backend)
+2. README.md détaillé
+3. Documentation technique
+4. Base de données avec données de test
+5. Application fonctionnelle
+6.  Rapport de projet (à rédiger)
+7.  Présentation (à préparer)
 
 ---
 
-## 🎯 Points Forts du Projet
+## Points Forts du Projet
 
 1. **Architecture professionnelle** - Séparation claire
 2. **Code modulaire** - Réutilisable et maintenable
@@ -366,7 +366,7 @@ git push origin feature/nom-feature
 
 ---
 
-## 💡 Démonstration Orale
+## Démonstration Orale
 
 ### Points à présenter
 1. Contexte et problématique

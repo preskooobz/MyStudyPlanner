@@ -1,43 +1,43 @@
-# 🚀 Installation et Test Rapide - MyStudyPlanner
+#  Installation et Test Rapide - MyStudyPlanner
 
-## ✅ Ce qui a été créé
+## Ce qui a été créé
 
 Votre projet **MyStudyPlanner** est maintenant complètement configuré avec :
 
-### 📁 Structure Professionnelle
-- ✅ Backend Node.js + Express (API REST)
-- ✅ Frontend React 19 + Tailwind CSS
-- ✅ Architecture modulaire et scalable
-- ✅ Documentation complète
+###  Structure Professionnelle
+- Backend Node.js + Express (API REST)
+- Frontend React 19 + Tailwind CSS
+- Architecture modulaire et scalable
+- Documentation complète
 
-### 🎨 Interface Utilisateur
-- ✅ Page de connexion avec authentification
-- ✅ Dashboard interactif avec statistiques
-- ✅ Gestion complète des tâches (CRUD)
-- ✅ Filtres et recherche avancés
-- ✅ Design responsive et moderne
-- ✅ Animations fluides (Framer Motion)
+###  Interface Utilisateur
+- Page de connexion avec authentification
+- Dashboard interactif avec statistiques
+- Gestion complète des tâches (CRUD)
+- Filtres et recherche avancés
+- Design responsive et moderne
+- Animations fluides (Framer Motion)
 
-### 📊 Fonctionnalités
-- ✅ Système d'authentification (simulé)
-- ✅ Gestion des tâches par matière
-- ✅ Priorités (Basse/Moyenne/Haute)
-- ✅ Statuts (En cours/Terminée)
-- ✅ Graphiques interactifs (Recharts)
-- ✅ Statistiques en temps réel
+###  Fonctionnalités
+- Système d'authentification (simulé)
+- Gestion des tâches par matière
+- Priorités (Basse/Moyenne/Haute)
+- Statuts (En cours/Terminée)
+- Graphiques interactifs (Recharts)
+- Statistiques en temps réel
 
 ---
 
-## 🚀 Comment Tester Votre Projet
+##  Comment Tester Votre Projet
 
 ### Méthode 1 : Script Automatique (Windows)
 
 Double-cliquez sur le fichier **`start.bat`** à la racine du projet.
 
 Cela va :
-1. ✅ Démarrer le backend sur http://localhost:5000
-2. ✅ Démarrer le frontend sur http://localhost:3000
-3. ✅ Ouvrir 2 fenêtres de terminal
+1. Démarrer le backend sur http://localhost:5000
+2. Démarrer le frontend sur http://localhost:3000
+3. Ouvrir 2 fenêtres de terminal
 
 ### Méthode 2 : Manuelle
 
@@ -55,27 +55,27 @@ npm run dev
 
 ---
 
-## 🔐 Connexion au Système
+##  Connexion au Système
 
 1. Ouvrez votre navigateur sur **http://localhost:3000**
 2. Utilisez l'un des comptes de test :
 
 ```
-👤 Compte Admin
+ Compte Admin
 Username: admin
 Password: admin123
 
-👤 Compte Étudiant
+ Compte Étudiant
 Username: etudiant
 Password: etudiant123
 ```
 
 ---
 
-## 🎯 Test Complet des Fonctionnalités
+##  Test Complet des Fonctionnalités
 
 ### 1️⃣ Dashboard (Page d'accueil)
-✅ Vérifier les statistiques :
+Vérifier les statistiques :
 - Total des tâches
 - Tâches terminées
 - Tâches en cours
@@ -86,56 +86,56 @@ Password: etudiant123
 - Liste des tâches urgentes
 
 ### 2️⃣ Gestion des Tâches
-✅ Aller dans "Mes Tâches" (sidebar)
-✅ Voir la liste des tâches existantes
-✅ Tester la recherche
-✅ Tester les filtres (statut, priorité)
+Aller dans "Mes Tâches" (sidebar)
+Voir la liste des tâches existantes
+Tester la recherche
+Tester les filtres (statut, priorité)
 
 ### 3️⃣ Créer une Tâche
-✅ Cliquer sur "Nouvelle tâche"
-✅ Remplir le formulaire :
+Cliquer sur "Nouvelle tâche"
+Remplir le formulaire :
 - Titre : "Test TP React"
 - Description : "Créer un projet React moderne"
 - Matière : "Programmation Web"
 - Priorité : "Haute"
 - Date limite : (choisir une date)
-✅ Cliquer sur "Créer la tâche"
-✅ Vérifier qu'elle apparaît dans la liste
+Cliquer sur "Créer la tâche"
+Vérifier qu'elle apparaît dans la liste
 
 ### 4️⃣ Modifier une Tâche
-✅ Cliquer sur "Modifier" sur une tâche
-✅ Changer les informations
-✅ Enregistrer
-✅ Vérifier les modifications
+Cliquer sur "Modifier" sur une tâche
+Changer les informations
+Enregistrer
+Vérifier les modifications
 
 ### 5️⃣ Marquer Terminée/En cours
-✅ Cliquer sur "Marquer terminée" sur une tâche
-✅ Voir le statut changer
-✅ Voir la progression globale se mettre à jour
+Cliquer sur "Marquer terminée" sur une tâche
+Voir le statut changer
+Voir la progression globale se mettre à jour
 
 ### 6️⃣ Supprimer une Tâche
-✅ Cliquer sur "Supprimer"
-✅ Confirmer la suppression
-✅ Vérifier qu'elle disparaît
+Cliquer sur "Supprimer"
+Confirmer la suppression
+Vérifier qu'elle disparaît
 
 ### 7️⃣ Design Responsive
-✅ Redimensionner le navigateur
-✅ Tester sur mobile (F12 > mode responsive)
+Redimensionner le navigateur
+Tester sur mobile (F12 > mode responsive)
 
 ### 8️⃣ Déconnexion
-✅ Cliquer sur "Déconnexion" (sidebar en bas)
-✅ Être redirigé vers la page de login
+Cliquer sur "Déconnexion" (sidebar en bas)
+Être redirigé vers la page de login
 
 ---
 
-## 📡 Vérification de l'API
+##  Vérification de l'API
 
 Testez l'API directement :
 
-### 🌐 Dans votre navigateur
+###  Dans votre navigateur
 - http://localhost:5000/api → Message de bienvenue
 
-### 🧪 Avec Postman/Insomnia (optionnel)
+###  Avec Postman/Insomnia (optionnel)
 
 **Login :**
 ```http
@@ -155,7 +155,7 @@ GET http://localhost:5000/api/tasks?userId=1
 
 ---
 
-## 🐛 Résolution de Problèmes
+##  Résolution de Problèmes
 
 ### ❌ Le backend ne démarre pas
 **Erreur : Port déjà utilisé**
@@ -191,7 +191,7 @@ npm install
 
 ---
 
-## 📊 Structure des Données de Test
+##  Structure des Données de Test
 
 ### Utilisateurs (dans `backend/data/db.json`)
 ```json
@@ -212,7 +212,7 @@ npm install
 
 ---
 
-## 🎓 Démonstration pour le Jury
+##  Démonstration pour le Jury
 
 ### Ordre de Présentation Recommandé
 
@@ -241,42 +241,42 @@ npm install
 
 ---
 
-## 📦 Fichiers Importants à Consulter
+##  Fichiers Importants à Consulter
 
 ### Documentation
-- ✅ `README.md` - Documentation complète
-- ✅ `FICHE_TECHNIQUE.md` - Détails techniques
-- ✅ `GUIDE_DEMARRAGE.md` - Guide de démarrage
-- ✅ `CHECKLIST_PRESENTATION.md` - Checklist présentation
-- ✅ `STRUCTURE_PROJET.md` - Structure détaillée
+- `README.md` - Documentation complète
+- `FICHE_TECHNIQUE.md` - Détails techniques
+- `GUIDE_DEMARRAGE.md` - Guide de démarrage
+- `CHECKLIST_PRESENTATION.md` - Checklist présentation
+- `STRUCTURE_PROJET.md` - Structure détaillée
 
 ### Backend
-- ✅ `backend/server.js` - Point d'entrée
-- ✅ `backend/controllers/taskController.js` - Logique tâches
-- ✅ `backend/data/db.json` - Base de données
+- `backend/server.js` - Point d'entrée
+- `backend/controllers/taskController.js` - Logique tâches
+- `backend/data/db.json` - Base de données
 
 ### Frontend
-- ✅ `frontend/src/App.jsx` - Routing principal
-- ✅ `frontend/src/context/AuthContext.jsx` - Authentification
-- ✅ `frontend/src/pages/DashboardPage.jsx` - Dashboard
-- ✅ `frontend/src/pages/TasksPage.jsx` - Gestion tâches
+- `frontend/src/App.jsx` - Routing principal
+- `frontend/src/context/AuthContext.jsx` - Authentification
+- `frontend/src/pages/DashboardPage.jsx` - Dashboard
+- `frontend/src/pages/TasksPage.jsx` - Gestion tâches
 
 ---
 
-## 🎨 Captures d'Écran Recommandées
+##  Captures d'Écran Recommandées
 
 Pour votre rapport, prenez des captures de :
 
-1. ✅ Page de connexion
-2. ✅ Dashboard avec graphiques
-3. ✅ Liste des tâches
-4. ✅ Formulaire de création
-5. ✅ Filtres en action
-6. ✅ Vue mobile (responsive)
+1. Page de connexion
+2. Dashboard avec graphiques
+3. Liste des tâches
+4. Formulaire de création
+5. Filtres en action
+6. Vue mobile (responsive)
 
 ---
 
-## ⚡ Commandes Utiles
+##  Commandes Utiles
 
 ```bash
 # Réinstaller toutes les dépendances
@@ -298,7 +298,7 @@ cd backend && npm start
 
 ---
 
-## ✅ Checklist Finale Avant Présentation
+## Checklist Finale Avant Présentation
 
 - [ ] Backend démarre sans erreur
 - [ ] Frontend démarre sans erreur
@@ -313,17 +313,17 @@ cd backend && npm start
 
 ---
 
-## 🎯 Prochaines Étapes
+##  Prochaines Étapes
 
-1. ✅ **Tester toutes les fonctionnalités**
-2. ✅ **Prendre des captures d'écran**
-3. ✅ **Préparer la présentation**
-4. ✅ **Réviser le code**
-5. ✅ **Préparer les réponses aux questions**
+1. **Tester toutes les fonctionnalités**
+2. **Prendre des captures d'écran**
+3. **Préparer la présentation**
+4. **Réviser le code**
+5. **Préparer les réponses aux questions**
 
 ---
 
-## 📞 Besoin d'Aide ?
+##  Besoin d'Aide ?
 
 ### Ressources
 - Documentation React : https://react.dev
@@ -341,9 +341,9 @@ taskkill /PID <PID> /F
 
 ---
 
-**Votre projet est prêt ! 🎉**
+**Votre projet est prêt ! **
 
-**Bonne chance pour votre présentation ! 🚀**
+**Bonne chance pour votre présentation ! **
 
 ---
 

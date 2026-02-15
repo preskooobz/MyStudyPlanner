@@ -1,6 +1,6 @@
-# 📝 Checklist de Présentation - MyStudyPlanner
+#  Checklist de Présentation - MyStudyPlanner
 
-## 📋 Avant la Présentation
+##  Avant la Présentation
 
 ### Préparation Technique
 - [ ] Tester le backend (API fonctionne)
@@ -18,7 +18,7 @@
 - [ ] Screenshots de l'application
 - [ ] Diagrammes d'architecture
 
-## 🎤 Déroulement de la Présentation
+##  Déroulement de la Présentation
 
 ### 1. Introduction (2-3 min)
 - [ ] Présenter le contexte et la problématique
@@ -104,7 +104,7 @@
 - [ ] Avez-vous fait des tests ?
 - [ ] Comment avez-vous géré les bugs ?
 
-## 🎯 Points Forts à Mettre en Avant
+##  Points Forts à Mettre en Avant
 
 1. **Architecture professionnelle**
    - Séparation Frontend/Backend
@@ -132,29 +132,29 @@
    - Fiche technique complète
    - Code commenté
 
-## 💡 Conseils
+##  Conseils
 
 ### Pendant la Présentation
-- ✅ Parler clairement et lentement
-- ✅ Regarder le jury
-- ✅ Être enthousiaste
-- ✅ Gérer le temps (timer)
-- ✅ Avoir un plan B si technique ne marche pas
+- Parler clairement et lentement
+- Regarder le jury
+- Être enthousiaste
+- Gérer le temps (timer)
+- Avoir un plan B si technique ne marche pas
 
 ### Gestion du Stress
-- ✅ Respirer profondément
-- ✅ S'entraîner avant
-- ✅ Connaître son projet par cœur
-- ✅ Préparer ses réponses aux questions
+- Respirer profondément
+- S'entraîner avant
+- Connaître son projet par cœur
+- Préparer ses réponses aux questions
 
 ### Matériel
-- ✅ Ordinateur chargé
-- ✅ Backup sur clé USB
-- ✅ Adaptateurs (HDMI, etc.)
-- ✅ Notes papier (au cas où)
-- ✅ Eau
+- Ordinateur chargé
+- Backup sur clé USB
+- Adaptateurs (HDMI, etc.)
+- Notes papier (au cas où)
+- Eau
 
-## 📊 Évaluation Personnelle
+##  Évaluation Personnelle
 
 Après la présentation, notez :
 - [ ] Ce qui s'est bien passé
@@ -162,7 +162,7 @@ Après la présentation, notez :
 - [ ] Les questions difficiles
 - [ ] Les retours du jury
 
-## 🎓 Bonne Chance !
+##  Bonne Chance !
 
 **Remember**: Vous connaissez votre projet mieux que personne. Soyez confiant !
 

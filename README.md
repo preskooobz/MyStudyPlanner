@@ -1,20 +1,31 @@
-# 📚 MyStudyPlanner - Application de Gestion Académique
+# MyStudyPlanner - Application de Gestion Académique
 
 Application web moderne permettant aux étudiants de gérer leurs devoirs, TP et projets académiques avec un tableau de bord interactif.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
 ![React](https://img.shields.io/badge/React-19-61dafb.svg)
 ![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
 
-## 🎯 Objectif du Projet
+## Nouveautés Version 2.0.0
+
+- Mode sombre/clair avec basculement automatique
+- Système de notifications intelligent avec rappels de tâches
+- Gestion des cookies GDPR
+- Système de rôles admin/étudiant avancé
+- Interface optimisée pour le dark mode
+- Documentation nettoyée et professionnelle
+
+Voir [CHANGELOG.md](CHANGELOG.md) et [NOUVELLES_FONCTIONNALITES.md](NOUVELLES_FONCTIONNALITES.md) pour plus de détails.
+
+## Objectif du Projet
 
 Développer une application web complète de gestion académique permettant aux étudiants de :
-- ✅ Organiser leurs tâches par matière
-- ✅ Suivre leur progression
-- ✅ Visualiser des statistiques
-- ✅ Gérer les priorités et deadlines
+- Organiser leurs tâches par matière
+- Suivre leur progression
+- Visualiser des statistiques
+- Gérer les priorités et deadlines
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 mystudyplanner/
@@ -36,7 +47,7 @@ mystudyplanner/
     │   └── utils/    # Fonctions utilitaires
 ```
 
-## 🛠️ Technologies Utilisées
+## Technologies Utilisées
 
 ### Backend
 - **Node.js** - Runtime JavaScript
@@ -53,7 +64,7 @@ mystudyplanner/
 - **Lucide React** - Icônes modernes
 - **Axios** - Client HTTP
 
-## 🚀 Installation et Démarrage
+## Installation et Démarrage
 
 ### Prérequis
 - Node.js 18+ installé
@@ -61,7 +72,7 @@ mystudyplanner/
 
 ### Installation Complète
 
-#### 1️⃣ Backend
+#### 1. Backend
 
 ```bash
 # Aller dans le dossier backend
@@ -76,7 +87,7 @@ npm start
 
 Le serveur API sera accessible sur `http://localhost:5000`
 
-#### 2️⃣ Frontend
+#### 2. Frontend
 
 ```bash
 # Aller dans le dossier frontend (dans un nouveau terminal)
@@ -91,7 +102,7 @@ npm run dev
 
 L'application sera accessible sur `http://localhost:3000`
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Authentification
 - `POST /api/auth/login` - Connexion
@@ -105,7 +116,7 @@ L'application sera accessible sur `http://localhost:3000`
 - `DELETE /api/tasks/:id` - Supprimer une tâche
 - `GET /api/tasks/stats/:userId` - Statistiques utilisateur
 
-## 👤 Comptes de Test
+## Comptes de Test
 
 ```
 Username: admin
@@ -115,40 +126,55 @@ Username: etudiant
 Password: etudiant123
 ```
 
-## 🎨 Fonctionnalités Principales
+## Fonctionnalités Principales
 
-### 🔐 Authentification
+### Authentification
 - Connexion / Déconnexion
-- Session persistante (localStorage)
+- Session persistante (cookies + localStorage)
 - Routes protégées
+- Système de rôles (admin/étudiant)
 
-### 📝 Gestion des Tâches
+### Gestion des Tâches
 - Création, modification, suppression
 - Statut : En cours / Terminée
 - Priorité : Basse / Moyenne / Haute
 - Date limite
 - Organisation par matière
+- Filtrage selon les rôles
 
-### 📊 Dashboard Interactif
+### Dashboard Interactif
 - Statistiques globales
 - Graphique par matière (BarChart)
 - Répartition par priorité (PieChart)
 - Tâches urgentes
 - Barre de progression
 
-### 🔍 Filtres et Recherche
+### Filtres et Recherche
 - Recherche par mots-clés
 - Filtrage par statut
 - Filtrage par priorité
 - Filtrage par matière
 
-### 🎯 Design Moderne
+### Mode Sombre (Nouveau v2.0)
+- Basculement automatique selon préférences système
+- Bouton de bascule manuelle
+- Sauvegarde de la préférence
+- Interface complète compatible dark mode
+
+### Notifications (Nouveau v2.0)
+- Centre de notifications intelligent
+- Détection automatique des tâches en retard
+- Rappels pour tâches à venir (24h)
+- Badge avec compteur non lus
+- Navigation vers les tâches
+
+### Design Moderne
 - Interface responsive (Mobile/Tablet/Desktop)
 - Animations fluides avec Framer Motion
 - Palette de couleurs académique (vert)
-- Dark patterns ready
+- Support complet du mode sombre
 
-## 📂 Structure des Données
+## Structure des Données
 
 ### Tâche
 ```json
@@ -165,7 +191,7 @@ Password: etudiant123
 }
 ```
 
-## 🎨 Design System
+## Design System
 
 ### Couleurs
 - **Primary**: Vert #16a34a (académique)
@@ -182,7 +208,7 @@ Password: etudiant123
 - StatCard - Carte statistique
 - TaskCard - Carte de tâche
 
-## 📱 Pages de l'Application
+## Pages de l'Application
 
 | Route | Description |
 |-------|-------------|
@@ -193,15 +219,15 @@ Password: etudiant123
 | `/tasks/edit/:id` | Modifier une tâche |
 | `*` | Page 404 |
 
-## 🔒 Sécurité
+## Sécurité
 
 - Routes protégées avec PrivateRoute
 - Validation des données côté serveur
 - Gestion des erreurs
 - Messages d'erreur clairs
-- ⚠️ Note: Authentification simulée (pas de JWT en production)
+- ATTENTION: Authentification simulée (pas de JWT en production)
 
-## 📦 Scripts Disponibles
+## Scripts Disponibles
 
 ### Backend
 ```bash
@@ -217,23 +243,42 @@ npm run preview # Prévisualiser le build
 npm run lint    # Vérifier le code
 ```
 
-## 🚀 Améliorations Possibles (Bonus)
+## Améliorations Réalisées
 
-- 🔔 Système de notifications
-- 📅 Calendrier intégré (react-calendar)
-- 🌙 Mode sombre
-- 📥 Export PDF du planning
-- 📌 Drag & Drop des tâches
-- 📧 Envoi d'emails de rappel
-- 🔐 JWT Authentication
-- 📱 Application mobile (React Native)
-- 🗄️ Base de données réelle (MongoDB/PostgreSQL)
+Version 2.0:
+- Système de notifications intelligent (IMPLEMENTÉ)
+- Mode sombre complet (IMPLEMENTÉ)
+- Gestion des cookies GDPR (IMPLEMENTÉ)
+- Système de rôles avancé (IMPLEMENTÉ)
 
-## 📄 Licence
+Futures améliorations possibles:
+- Calendrier intégré (react-calendar)
+- Export PDF du planning
+- Drag & Drop des tâches
+- Envoi d'emails de rappel
+- JWT Authentication
+- Application mobile (React Native)
+- Base de données réelle (MongoDB/PostgreSQL)
+
+## Fichiers de Documentation
+
+- [README.md](README.md) - Documentation principale
+- [CHANGELOG.md](CHANGELOG.md) - Historique des versions
+- [NOUVELLES_FONCTIONNALITES.md](NOUVELLES_FONCTIONNALITES.md) - Détails des nouvelles fonctionnalités
+- [GUIDE_DEMARRAGE.md](GUIDE_DEMARRAGE.md) - Guide de démarrage rapide
+- [FICHE_TECHNIQUE.md](FICHE_TECHNIQUE.md) - Documentation technique détaillée
+- [INSTRUCTIONS_TEST.md](INSTRUCTIONS_TEST.md) - Guide de test complet
+- [STRUCTURE_PROJET.md](STRUCTURE_PROJET.md) - Structure du projet
+- [CHECKLIST_PRESENTATION.md](CHECKLIST_PRESENTATION.md) - Préparation présentation
+- JWT Authentication
+- Application mobile (React Native)
+- Base de données réelle (MongoDB/PostgreSQL)
+
+## Licence
 
 Ce projet est réalisé dans un cadre pédagogique.
 
-## 👨‍💻 Développement
+## Développement
 
 Pour contribuer au projet :
 
@@ -243,10 +288,10 @@ Pour contribuer au projet :
 4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrir une Pull Request
 
-## 📞 Support
+## Support
 
 Pour toute question ou problème, veuillez ouvrir une issue sur GitHub.
 
 ---
 
-**Fait avec ❤️ pour les étudiants**
+Fait avec passion pour les étudiants

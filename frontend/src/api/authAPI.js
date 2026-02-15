@@ -12,4 +12,16 @@ export const authAPI = {
     const response = await api.post('/auth/register', userData);
     return response.data;
   },
+
+  // Déconnexion
+  logout: async () => {
+    const response = await api.post('/auth/logout');
+    return response.data;
+  },
+
+  // Vérifier l'authentification
+  checkAuth: async () => {
+    const response = await api.get('/auth/check');
+    return response.data;
+  },
 };

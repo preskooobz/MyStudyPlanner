@@ -6,6 +6,8 @@ import { tasksAPI } from '../api/tasksAPI';
 import DashboardLayout from '../layouts/DashboardLayout';
 import StatCard from '../components/StatCard';
 import Card from '../components/Card';
+import ThemeToggle from '../components/ThemeToggle';
+import NotificationCenter from '../components/NotificationCenter';
 import { 
   ListTodo, 
   CheckCircle, 
@@ -107,23 +109,31 @@ const DashboardPage = () => {
     <DashboardLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-gray-900">
-              Tableau de bord
-            </h1>
-            {user?.role === 'admin' && (
-              <span className="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">
-                Vue Administrateur
-              </span>
-            )}
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                Tableau de bord
+              </h1>
+              {user?.role === 'admin' && (
+                <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-sm font-medium rounded-full">
+                  Vue Administrateur
+                </span>
+              )}
+            </div>
+            <p className="text-gray-600 dark:text-gray-400">
+              Bienvenue {user?.fullName || user?.username} ! {user?.role === 'admin' 
+                ? 'Voici un aperçu de toutes les tâches.' 
+                : 'Voici un aperçu de vos tâches académiques.'
+              }
+            </p>
           </div>
-          <p className="text-gray-600">
-            Bienvenue {user?.fullName || user?.username} ! {user?.role === 'admin' 
-              ? 'Voici un aperçu de toutes les tâches.' 
-              : 'Voici un aperçu de vos tâches académiques.'
-            }
-          </p>
+          
+          {/* Boutons Notification et Theme */}
+          <div className="flex items-center gap-3">
+            <NotificationCenter />
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -158,12 +168,12 @@ const DashboardPage = () => {
         {stats && stats.total > 0 && (
           <Card>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold text-gray-900">Progression globale</h3>
-              <span className="text-2xl font-bold text-primary-600">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Progression globale</h3>
+              <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                 {Math.round((stats.completed / stats.total) * 100)}%
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-4">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${(stats.completed / stats.total) * 100}%` }}
@@ -171,7 +181,7 @@ const DashboardPage = () => {
                 className="bg-gradient-to-r from-primary-500 to-primary-600 h-4 rounded-full"
               />
             </div>
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
               {stats.completed} tâches terminées sur {stats.total}
             </p>
           </Card>
@@ -182,13 +192,20 @@ const DashboardPage = () => {
           {/* Tâches par matière */}
           {subjectData.length > 0 && (
             <Card>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Tâches par matière</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tâches par matière</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={subjectData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="name" stroke="#9ca3af" />
+                  <YAxis stroke="#9ca3af" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1f2937', 
+                      border: '1px solid #374151',
+                      borderRadius: '0.5rem',
+                      color: '#fff'
+                    }}
+                  />
                   <Bar dataKey="taches" fill="#16a34a" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -198,7 +215,7 @@ const DashboardPage = () => {
           {/* Répartition par priorité */}
           {priorityData.length > 0 && (
             <Card>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Répartition par priorité</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Répartition par priorité</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
@@ -215,7 +232,14 @@ const DashboardPage = () => {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1f2937', 
+                      border: '1px solid #374151',
+                      borderRadius: '0.5rem',
+                      color: '#fff'
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </Card>
@@ -225,9 +249,9 @@ const DashboardPage = () => {
         {/* Tâches urgentes */}
         {urgentTasks.length > 0 && (
           <Card>
-            <div className="flex items-center gap-2 mb-4">
-              <AlertCircle className="w-5 h-5 text-orange-600" />
-              <h3 className="text-lg font-semibold text-gray-900">Tâches urgentes</h3>
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tâches urgentes</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">À faire dans les 3 prochains jours</p>
             </div>
             <div className="space-y-3">
               {urgentTasks.map((task) => (
@@ -235,11 +259,11 @@ const DashboardPage = () => {
                   key={task.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center justify-between p-4 bg-orange-50 border border-orange-200 rounded-lg"
+                  className="flex items-center justify-between p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg"
                 >
                   <div>
-                    <p className="font-medium text-gray-900">{task.title}</p>
-                    <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
+                    <p className="font-medium text-gray-900 dark:text-white">{task.title}</p>
+                    <div className="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
                       <span>{task.subject}</span>
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
@@ -247,7 +271,7 @@ const DashboardPage = () => {
                       </span>
                     </div>
                   </div>
-                  <span className="px-3 py-1 bg-orange-200 text-orange-800 text-sm font-medium rounded-full">
+                  <span className="px-3 py-1 bg-orange-200 dark:bg-orange-800 text-orange-800 dark:text-orange-400 text-sm font-medium rounded-full">
                     {getDaysUntilDue(task.dueDate)} jour{getDaysUntilDue(task.dueDate) > 1 ? 's' : ''}
                   </span>
                 </motion.div>

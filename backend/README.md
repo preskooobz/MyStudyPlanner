@@ -2,7 +2,7 @@
 
 Backend API REST pour l'application MyStudyPlanner.
 
-## 🚀 Démarrage
+## Démarrage
 
 ```bash
 # Installer les dépendances
@@ -15,7 +15,7 @@ npm start
 npm run dev
 ```
 
-## 📡 Endpoints API
+## Endpoints API
 
 ### Authentification
 
@@ -76,14 +76,14 @@ Supprimer une tâche
 #### GET /api/tasks/stats/:userId
 Récupérer les statistiques d'un utilisateur
 
-## 📦 Technologies
+## Technologies
 
 - Node.js
 - Express.js
 - JSON File Storage
 - CORS
 
-## 👥 Utilisateurs de test
+## Utilisateurs de test
 
 ```
 Username: admin

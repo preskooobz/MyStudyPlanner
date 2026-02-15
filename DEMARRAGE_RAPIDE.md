@@ -1,22 +1,22 @@
-# 🎯 DÉMARRAGE IMMÉDIAT - MyStudyPlanner
+# DÉMARRAGE IMMÉDIAT - MyStudyPlanner
 
-## ⚡ COMMENCEZ EN 3 ÉTAPES
+## COMMENCEZ EN 3 ÉTAPES
 
-### 1️⃣ Lancez le Backend
+### 1. Lancez le Backend
 ```bash
 cd backend
 npm start
 ```
-✅ **Serveur démarré sur http://localhost:5000**
+Serveur démarré sur http://localhost:5000
 
-### 2️⃣ Lancez le Frontend (nouveau terminal)
+### 2. Lancez le Frontend (nouveau terminal)
 ```bash
 cd frontend
 npm run dev
 ```
-✅ **Application démarrée sur http://localhost:3000**
+Application démarrée sur http://localhost:3000
 
-### 3️⃣ Connectez-vous
+### 3. Connectez-vous
 Ouvrez http://localhost:3000
 
 **Identifiants :**
@@ -27,16 +27,16 @@ Password: admin123
 
 ---
 
-## 🎨 CE QUE VOUS ALLEZ VOIR
+## CE QUE VOUS ALLEZ VOIR
 
-### 📊 Dashboard
+### Dashboard
 - **4 cartes de statistiques** animées
 - **Graphique en barres** (tâches par matière)
 - **Graphique circulaire** (priorités)
 - **Barre de progression** globale
 - **Tâches urgentes** en temps réel
 
-### 📝 Gestion des Tâches
+### Gestion des Tâches
 - **Liste complète** avec filtres et recherche
 - **Créer** une nouvelle tâche
 - **Modifier** une tâche existante
@@ -45,9 +45,9 @@ Password: admin123
 
 ---
 
-## 🎯 TEST RAPIDE (5 minutes)
+## TEST RAPIDE (5 minutes)
 
-### ✅ Checklist de Test
+### Checklist de Test
 1. [ ] Se connecter
 2. [ ] Voir le dashboard avec graphiques
 3. [ ] Aller dans "Mes Tâches"
@@ -61,22 +61,24 @@ Password: admin123
 
 ---
 
-## 📱 FONCTIONNALITÉS PRINCIPALES
+## FONCTIONNALITÉS PRINCIPALES
 
-### ✨ Ce qui fonctionne
-✅ Authentification complète  
-✅ Dashboard interactif avec graphiques  
-✅ CRUD complet des tâches  
-✅ Filtres par statut, priorité, matière  
-✅ Recherche textuelle  
-✅ Statistiques en temps réel  
-✅ Design responsive (mobile/tablet/desktop)  
-✅ Animations fluides  
-✅ Gestion des erreurs  
+### Ce qui fonctionne
+Authentification complète  
+Dashboard interactif avec graphiques  
+CRUD complet des tâches  
+Filtres par statut, priorité, matière  
+Recherche textuelle  
+Statistiques en temps réel  
+Design responsive (mobile/tablet/desktop)  
+Animations fluides  
+Gestion des erreurs  
+Mode sombre  
+Notifications avec rappels  
 
 ---
 
-## 🆘 PROBLÈMES COURANTS
+## PROBLÈMES COURANTS
 
 ### Backend ne démarre pas ?
 ```bash
@@ -104,18 +106,18 @@ npm install
 
 ---
 
-## 📖 DOCUMENTATION
+## DOCUMENTATION
 
 ### Fichiers à consulter
-- 📄 **README.md** - Documentation complète
-- 📄 **RECAPITULATIF_FINAL.md** - Vue d'ensemble détaillée
-- 📄 **FICHE_TECHNIQUE.md** - Détails techniques
-- 📄 **CHECKLIST_PRESENTATION.md** - Préparer la présentation
-- 📄 **INSTRUCTIONS_TEST.md** - Tests complets
+- README.md - Documentation complète
+- RECAPITULATIF_FINAL.md - Vue d'ensemble détaillée
+- FICHE_TECHNIQUE.md - Détails techniques
+- CHECKLIST_PRESENTATION.md - Préparer la présentation
+- INSTRUCTIONS_TEST.md - Tests complets
 
 ---
 
-## 🎓 POUR LA PRÉSENTATION
+## POUR LA PRÉSENTATION
 
 ### Ordre recommandé
 1. **Intro** (2 min) - Contexte + objectifs
@@ -125,18 +127,19 @@ npm install
 5. **Conclusion** (2 min) - Points forts + futures
 
 ### Points forts à mentionner
-✅ Architecture Frontend/Backend séparée  
-✅ API REST avec 8 endpoints  
-✅ React 19 + Hooks avancés  
-✅ Design moderne avec Tailwind  
-✅ Graphiques interactifs  
-✅ Code modulaire et réutilisable  
+Architecture Frontend/Backend séparée  
+API REST avec 8 endpoints  
+React 19 + Hooks avancés  
+Design moderne avec Tailwind  
+Graphiques interactifs  
+Code modulaire et réutilisable  
+Mode sombre et notifications  
 
 ---
 
-## 📊 STATISTIQUES
+## STATISTIQUES
 
-- **60+ fichiers créés**
+- 70+ fichiers créés
 - **3500+ lignes de code**
 - **6 pages React**
 - **20+ composants**
@@ -145,11 +148,11 @@ npm install
 
 ---
 
-## ✅ PROJET 100% FONCTIONNEL
+## PROJET 100% FONCTIONNEL
 
-Votre application est **prête pour la démonstration** !
+Votre application est prête pour la démonstration !
 
-**Bonne chance ! 🚀**
+Bonne chance !
 
 ---
 
