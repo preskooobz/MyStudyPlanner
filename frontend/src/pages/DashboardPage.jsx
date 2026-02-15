@@ -9,7 +9,6 @@ import StatCard from '../components/StatCard';
 import Card from '../components/Card';
 import ThemeToggle from '../components/ThemeToggle';
 import NotificationCenter from '../components/NotificationCenter';
-import ThemeDebug from '../components/ThemeDebug';
 import { 
   ListTodo, 
   CheckCircle, 
@@ -320,9 +319,6 @@ const DashboardPage = () => {
           </Card>
         )}
       </div>
-      
-      {/* Composant de debug pour tester le thème */}
-      <ThemeDebug />
     </DashboardLayout>
   );
 };
