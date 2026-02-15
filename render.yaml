@@ -5,7 +5,7 @@ services:
     region: frankfurt
     plan: free
     buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    startCommand: cd backend && chmod +x init.sh && ./init.sh
     envVars:
       - key: NODE_ENV
         value: production
