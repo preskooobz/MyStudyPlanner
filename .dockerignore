@@ -1,0 +1,12 @@
+# Fichiers et dossiers à ignorer par Docker
+node_modules
+npm-debug.log
+.git
+.gitignore
+*.md
+.env
+.vscode
+.idea
+coverage
+dist
+build

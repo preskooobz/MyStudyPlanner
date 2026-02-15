@@ -14,10 +14,13 @@ Application web moderne et complète permettant aux étudiants de gérer leurs d
 - [Architecture Technique](#architecture-technique)
 - [Technologies Utilisées](#technologies-utilisées)
 - [Installation](#installation-et-démarrage)
+  - [Installation avec Docker (Recommandé)](#installation-avec-docker-recommandé)
+  - [Installation Manuelle](#installation-complète)
 - [Fonctionnalités Détaillées](#fonctionnalités-détaillées)
 - [API Documentation](#api-endpoints)
 - [Comptes de Test](#comptes-de-test)
 - [Structure du Projet](#structure-du-projet)
+- [Déploiement Docker](#docker)
 
 ## Nouveautés Version 2.0.0
 
@@ -295,7 +298,7 @@ MyStudyPlanner/
 - **npm** (inclus avec Node.js)
 - **Git** (optionnel)
 
-### Installation Complète
+### Installation Manuelle
 
 #### Étape 1 : Cloner le Projet
 
@@ -360,9 +363,62 @@ L'application sera accessible sur `http://localhost:3000`
 }
 ```
 
+### Installation avec Docker (Recommandé)
+
+Docker permet d'éviter les problèmes de versions et de configurations. **Pour plus de détails, consultez [DOCKER.md](DOCKER.md)**
+
+#### Prérequis Docker
+- **Docker** 20.10+ ([Télécharger](https://www.docker.com/products/docker-desktop/))
+- **Docker Compose** 2.0+
+
+#### Démarrage Rapide
+
+```bash
+# Cloner le projet
+git clone https://github.com/preskooobz/MyStudyPlanner.git
+cd MyStudyPlanner
+
+# Démarrer avec Docker Compose
+docker-compose up -d
+
+# Vérifier que les services sont actifs
+docker-compose ps
+```
+
+**C'est tout !** L'application est accessible sur :
+- **Frontend** : http://localhost
+- **Backend API** : http://localhost:5000
+
+#### Commandes Utiles
+
+```bash
+# Voir les logs
+docker-compose logs -f
+
+# Arrêter les services
+docker-compose down
+
+# Redémarrer
+docker-compose restart
+
+# Reconstruire les images
+docker-compose up -d --build
+```
+
+#### Avantages Docker
+
+- ✅ Aucun besoin d'installer Node.js
+- ✅ Versions garanties (Node.js 18, React 19)
+- ✅ Isolation complète des environnements
+- ✅ Déploiement simplifié en production
+- ✅ Persistance des données avec volumes
+- ✅ Health checks automatiques
+
+**Documentation complète** : [DOCKER.md](DOCKER.md)
+
 ### Utilisation
 
-1. **Ouvrir** `http://localhost:3000` dans votre navigateur
+1. **Ouvrir** `http://localhost:3000` (ou `http://localhost` avec Docker) dans votre navigateur
 2. **Se connecter** avec un compte de test (voir section Comptes de Test)
 3. **Explorer** le dashboard et créer des tâches
 
