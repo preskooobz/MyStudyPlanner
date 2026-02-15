@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { 
   LayoutDashboard, 
   ListTodo, 
@@ -12,6 +13,7 @@ import {
 
 const DashboardLayout = ({ children }) => {
   const { user, logout } = useAuth();
+  const { theme } = useTheme();
   const location = useLocation();
 
   const navigation = [
@@ -23,9 +25,14 @@ const DashboardLayout = ({ children }) => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors"
+         style={{ 
+           backgroundColor: theme === 'dark' ? '#111827' : '#f9fafb',
+           color: theme === 'dark' ? '#f3f4f6' : '#111827'
+         }}>
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 shadow-lg transition-colors">
+      <aside className="fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 shadow-lg transition-colors"
+             style={{ backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff' }}>
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center gap-2 px-6 py-6 border-b dark:border-gray-700">
@@ -101,8 +108,12 @@ const DashboardLayout = ({ children }) => {
       </aside>
 
       {/* Main content */}
-      <div className="ml-64">
-        <main className="p-8">
+      <div className="ml-64" style={{ backgroundColor: theme === 'dark' ? '#111827' : '#f9fafb' }}>
+        <main className="p-8" style={{ 
+          minHeight: '100vh',
+          backgroundColor: theme === 'dark' ? '#111827' : '#f9fafb',
+          color: theme === 'dark' ? '#f3f4f6' : '#111827'
+        }}>
           {children}
         </main>
       </div>
