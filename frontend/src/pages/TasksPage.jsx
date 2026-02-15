@@ -123,7 +123,8 @@ const TasksPage = () => {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"
+               style={{ borderColor: theme === 'dark' ? '#4ade80' : '#16a34a' }}></div>
         </div>
       </DashboardLayout>
     );
