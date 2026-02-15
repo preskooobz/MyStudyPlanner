@@ -19,50 +19,6 @@
       "createdAt": "2026-02-14T10:00:00.000Z"
     }
   ],
-  "tasks": [
-    {
-      "id": 1,
-      "userId": 1,
-      "title": "TP React Hooks",
-      "description": "Faire un projet utilisant useState, useEffect et useContext",
-      "subject": "Programmation Web",
-      "priority": "high",
-      "status": "pending",
-      "dueDate": "2026-03-01",
-      "createdAt": "2026-02-14T10:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "title": "Révisions Bases de Données",
-      "description": "Réviser les jointures SQL et les transactions",
-      "subject": "Bases de Données",
-      "priority": "medium",
-      "status": "pending",
-      "dueDate": "2026-02-20",
-      "createdAt": "2026-02-14T10:00:00.000Z"
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "title": "Projet Machine Learning",
-      "description": "Créer un modèle de classification avec scikit-learn",
-      "subject": "Intelligence Artificielle",
-      "priority": "high",
-      "status": "completed",
-      "dueDate": "2026-02-15",
-      "createdAt": "2026-02-10T10:00:00.000Z"
-    },
-    {
-      "id": 4,
-      "userId": 1,
-      "title": "Rapport de stage",
-      "description": "Rédiger le rapport de stage de fin d'année",
-      "subject": "Stage",
-      "priority": "low",
-      "status": "pending",
-      "dueDate": "2026-04-01",
-      "createdAt": "2026-02-14T10:00:00.000Z"
-    }
-  ]
+  "tasks": [],
+  "notifications": []
 }
