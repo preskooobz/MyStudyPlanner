@@ -1,168 +1,255 @@
 # Guide de déploiement MyStudyPlanner
 
-## Déploiement Vercel (Frontend uniquement)
+## 📦 Déploiement Vercel (Recommandé)
 
-### Prérequis
-- Compte Vercel (gratuit)
-- Repository GitHub connecté
+L'application est **100% frontend** avec stockage local (localStorage). Aucun backend n'est nécessaire pour le déploiement de base.
 
-### Étapes de déploiement
+### ✅ Prérequis
+- Compte Vercel gratuit : https://vercel.com
+- Repository GitHub : https://github.com/preskooobz/MyStudyPlanner
 
-#### 1. Installation des dépendances racine
+---
+
+## 🚀 Déploiement rapide
+
+### **Option 1 : Via Dashboard Vercel (Plus simple)**
+
+1. **Connecter GitHub**
+   - Aller sur https://vercel.com/new
+   - Cliquer "Import Git Repository"
+   - Sélectionner `MyStudyPlanner`
+
+2. **Configuration automatique**
+   - Vercel détecte automatiquement `vercel.json`
+   - Framework Preset: Vite
+   - Build Command: `cd frontend && npm run build`
+   - Output Directory: `frontend/dist`
+   - Install Command: `npm install`
+
+3. **Déployer**
+   - Cliquer "Deploy"
+   - Attendre 2-3 minutes
+   - ✅ Votre app est en ligne !
+
+### **Option 2 : Via CLI Vercel**
+
 ```bash
-npm install
-```
-
-#### 2. Configuration Vercel
-
-**Option A : Via CLI**
-```bash
-# Installer Vercel CLI
+# 1. Installer Vercel CLI (une fois)
 npm i -g vercel
 
-# Se connecter
+# 2. Se connecter
 vercel login
 
-# Déployer
+# 3. Déployer depuis la racine du projet
+cd MyStudyPlanner
 vercel
+
+# Suivre les instructions :
+# - Set up and deploy? → Yes
+# - Link to existing project? → No
+# - Project name? → my-study-planner
+# - Directory? → ./
+# - Modify settings? → No
+
+# 4. Deploy en production
+vercel --prod
 ```
 
-**Option B : Via Dashboard Vercel**
-1. Aller sur https://vercel.com
-2. Importer le repo GitHub
-3. Configuration automatique détectée via `vercel.json`
-4. Deploy !
+---
 
-#### 3. Configuration des variables d'environnement
+## 🔧 Développement local
 
-Dans Vercel Dashboard → Settings → Environment Variables :
-
-```
-VITE_API_URL=https://votre-backend-url.com
-```
-
-**Important** : Le backend doit être déployé séparément (voir options ci-dessous).
-
-### Options pour le Backend
-
-#### Option 1 : Railway / Render (Recommandé)
 ```bash
-# Sur Railway
-railway login
-railway init
-railway up
+# Installation complète
+npm run install:all
 
-# Sur Render
-# Via dashboard : New → Web Service → Connecter repo
+# Lancer le dev server
+npm run dev
+# Frontend: http://localhost:5173
+# Backend (JSON-Server): http://localhost:5000
+
+# Build de production
+npm run build
 ```
 
-#### Option 2 : Vercel Serverless (API Routes)
-Nécessite une restructuration du backend en API routes Vercel.
+---
 
-#### Option 3 : Heroku
+## 🐳 Déploiement Docker (Optionnel)
+
+Si vous voulez héberger avec le backend JSON-Server :
+
+### **Local avec Docker Compose**
+
 ```bash
-heroku login
-heroku create mystudyplanner-api
-git push heroku main
+# Démarrer frontend + backend JSON-Server
+npm run docker:up
+
+# Arrêter
+npm run docker:down
+
+# Voir les logs
+npm run docker:logs
+
+# Rebuild complet
+npm run docker:build
 ```
 
-#### Option 4 : Docker sur VPS
+**Accès :**
+- Frontend: http://localhost:80
+- Backend API: http://localhost:5000
+
+### **Production VPS (DigitalOcean, AWS, Hetzner...)**
+
 ```bash
 # Sur votre serveur
 git clone https://github.com/preskooobz/MyStudyPlanner.git
 cd MyStudyPlanner
 docker-compose up -d
-```
-
-### Scripts disponibles
-
-```bash
-# Build frontend pour production
-npm run build
-
-# Développement local (frontend + backend)
-npm run dev
-
-# Installation complète
-npm run install:all
-
-# Docker local
-npm run docker:up
-npm run docker:down
-npm run docker:logs
-```
-
-### Structure du déploiement
-
-```
-Frontend (Vercel)
-  ↓
-  Requêtes API
-  ↓
-Backend (Railway/Render/Heroku)
-  ↓
-  Données JSON-Server
-```
-
-### URLs après déploiement
-
-- **Frontend** : `https://mystudyplanner.vercel.app`
-- **Backend** : `https://mystudyplanner-api.railway.app` (exemple)
-
-### Troubleshooting
-
-#### Erreur : "Could not read package.json"
-```bash
-# S'assurer d'être à la racine du projet
-cd MyStudyPlanner
-npm run build
-```
-
-#### Erreur : Routes ne fonctionnent pas
-Vérifier `vercel.json` - les rewrites doivent pointer vers `/index.html`
-
-#### Erreur : API non accessible
-1. Vérifier VITE_API_URL dans les env vars Vercel
-2. Vérifier CORS sur le backend
-3. Vérifier que le backend est en ligne
-
-### Monitoring
-
-- **Vercel Analytics** : Activable dans les settings
-- **Logs Vercel** : Dashboard → Deployments → Logs
-- **Logs Backend** : Selon la plateforme (Railway/Render/etc.)
-
-### Mise à jour
-
-```bash
-# Push sur GitHub déclenchera automatiquement un rebuild Vercel
-git add .
-git commit -m "Update"
-git push origin main
-```
-
-### Coûts
-
-- **Vercel** : Gratuit (Hobby plan) - 100GB bandwidth
-- **Railway** : $5/mois après 500h gratuites
-- **Render** : Gratuit avec sleep après inactivité
-- **Heroku** : $7/mois (Eco dynos)
-
-## Déploiement complet avec Docker
-
-Si vous préférez tout héberger ensemble :
-
-```bash
-# Sur VPS (DigitalOcean, AWS, etc.)
-git clone https://github.com/preskooobz/MyStudyPlanner.git
-cd MyStudyPlanner
-docker-compose up -d
 
 # Accessible sur :
-# Frontend: http://votre-ip:80
-# Backend: http://votre-ip:5000
+# Frontend: http://your-server-ip:80
+# Backend: http://your-server-ip:5000
 ```
 
-## Support
+---
 
-Pour toute question : [GitHub Issues](https://github.com/preskooobz/MyStudyPlanner/issues)
+## 📝 Scripts NPM disponibles
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Lance frontend (Vite) + backend (JSON-Server) en parallèle |
+| `npm run build` | Build de production du frontend |
+| `npm run vercel` | Build pour Vercel (identique à build) |
+| `npm run install:all` | Installe les dépendances frontend + backend |
+| `npm run docker:up` | Démarre les containers Docker |
+| `npm run docker:down` | Arrête les containers |
+| `npm run docker:build` | Rebuild les images Docker |
+| `npm run docker:logs` | Affiche les logs des containers |
+
+---
+
+## 🔄 Mises à jour automatiques
+
+Chaque `git push` sur la branche `main` déclenche automatiquement :
+
+✅ Build sur Vercel  
+✅ Déploiement en production  
+✅ Preview URL pour chaque commit  
+
+---
+
+## 🐛 Troubleshooting
+
+### **Erreur : "Could not read package.json"**
+```bash
+# Vérifier que vous êtes à la racine
+cd MyStudyPlanner
+npm run build
+```
+
+### **Erreur : Routes ne fonctionnent pas (404)**
+Le fichier `vercel.json` contient les rewrites nécessaires. Vérifier qu'il est bien présent et commité.
+
+### **Build échoue sur Vercel**
+1. Vérifier les logs dans Vercel Dashboard
+2. S'assurer que `frontend/package.json` existe
+3. Vérifier que `vite` est dans les devDependencies
+
+### **localStorage vide en production**
+Normal ! Les données sont stockées localement dans le navigateur. Chaque utilisateur a son propre stockage.
+
+---
+
+## 📊 Monitoring & Analytics
+
+- **Vercel Analytics** : Activer dans Project Settings → Analytics
+- **Logs** : Dashboard → Deployments → Cliquer sur un déploiement
+- **Usage** : Dashboard → Usage (bandwidth, builds, etc.)
+
+---
+
+## 💰 Coûts
+
+### **Plan Hobby Vercel (Gratuit)**
+- ✅ 100 GB bandwidth/mois
+- ✅ Builds illimités
+- ✅ Domaine custom gratuit
+- ✅ SSL automatique
+- ✅ CDN mondial
+- ✅ Preview deployments
+
+### **Limites du plan gratuit**
+- 100 GB bandwidth (largement suffisant pour usage personnel/étudiant)
+- Pas de limites sur le nombre de visiteurs
+- Renouvellement automatique chaque mois
+
+---
+
+## 🌐 Domaine personnalisé (Optionnel)
+
+1. **Acheter un domaine** (Namecheap, Google Domains, etc.)
+2. **Dans Vercel Dashboard** :
+   - Project Settings → Domains
+   - Ajouter votre domaine : `mystudyplanner.com`
+3. **Configurer les DNS** :
+   - Type: `A` → Value: `76.76.21.21`
+   - Type: `CNAME` → Name: `www` → Value: `cname.vercel-dns.com`
+
+SSL/HTTPS est configuré automatiquement ! 🔒
+
+---
+
+## 🎯 Prochaines étapes (V3.0)
+
+Pour une version avancée avec persistance serveur :
+
+1. **Backend réel** :
+   - Remplacer JSON-Server par Express + MongoDB/PostgreSQL
+   - Authentification JWT
+   - API REST complète
+
+2. **Plateforme de déploiement backend** :
+   - Railway (recommandé - $5/mois)
+   - Render (gratuit avec limitations)
+   - Heroku (à partir de $7/mois)
+   - VPS Docker (DigitalOcean Droplet à partir de $6/mois)
+
+3. **Configuration** :
+   - Créer fichier `frontend/.env.production`
+   - Ajouter `VITE_API_URL=https://api.mystudyplanner.com`
+   - Configurer dans Vercel → Environment Variables
+
+---
+
+## 📚 Documentation complète
+
+- **Docker** : Voir [DOCKER.md](DOCKER.md)
+- **Contribution** : Voir [README.md](README.md)
+- **Architecture** : Full React + Vite + Tailwind + Framer Motion
+- **Stockage** : localStorage (v2.0) → API Backend (v3.0 planned)
+
+---
+
+## 💬 Support
+
+- **Issues GitHub** : https://github.com/preskooobz/MyStudyPlanner/issues
+- **Discussions** : https://github.com/preskooobz/MyStudyPlanner/discussions
+- **Email** : [Créer un issue sur GitHub]
+
+---
+
+## ✨ URL de déploiement
+
+Une fois déployé, votre app sera accessible sur :
+
+```
+https://my-study-planner.vercel.app
+```
+
+ou avec votre domaine personnalisé :
+
+```
+https://mystudyplanner.com
+```
+
+🎉 **Bon déploiement !**
