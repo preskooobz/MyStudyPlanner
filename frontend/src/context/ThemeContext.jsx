@@ -27,13 +27,25 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     // Appliquer le thème au document
     const root = document.documentElement;
+    const body = document.body;
+    
+    console.log('🎨 Application du thème:', theme);
+    
     if (theme === 'dark') {
       root.classList.add('dark');
+      body.classList.add('dark');
+      console.log('✅ Mode sombre activé');
     } else {
       root.classList.remove('dark');
+      body.classList.remove('dark');
+      console.log('✅ Mode clair activé');
     }
+    
     // Sauvegarder dans localStorage
     localStorage.setItem('theme', theme);
+    
+    // Vérifier que la classe a bien été appliquée
+    console.log('Classes HTML:', root.classList.toString());
   }, [theme]);
 
   const toggleTheme = () => {
