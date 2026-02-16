@@ -28,6 +28,13 @@ export const NotificationProvider = ({ children }) => {
 
   const checkOverdueTasks = async () => {
     if (!user) return;
+    
+    // Vérifier si on a un token valide
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      console.log('Pas de token, skip notification check');
+      return;
+    }
 
     try {
       const params = user.role === 'admin' ? {} : { userId: user.id };
@@ -98,7 +105,11 @@ export const NotificationProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      console.error('Erreur lors de la vérification des tâches:', error);
+      // Ne pas logger si c'est une erreur 401 (non authentifié)
+      if (error.response?.status !== 401) {
+        console.error('Erreur lors de la vérification des tâches:', error);
+      }
+      // En cas d'erreur 401, l'intercepteur axios va gérer la redirection
     }
   };
 

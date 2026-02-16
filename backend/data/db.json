@@ -8,6 +8,15 @@
       "fullName": "Admin User",
       "role": "admin",
       "createdAt": "2026-02-14T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "username": "etudiant",
+      "email": "etudiant@mystudyplanner.com",
+      "password": "$2b$10$w30IlF9ly4MzxIV/eFE4TOqZ6NeUAIt9O8lRfAe2XHnFayFWL9uxS",
+      "fullName": "Étudiant Test",
+      "role": "student",
+      "createdAt": "2026-02-16T09:00:00.000Z"
     }
   ],
   "tasks": [],
