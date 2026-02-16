@@ -54,9 +54,10 @@ export const AuthProvider = ({ children }) => {
       const response = await authAPI.login(credentials);
       if (response.success && response.user) {
         setUser(response.user);
-        // Sauvegarder l'utilisateur et le token JWT
+        // Sauvegarder l'utilisateur et les deux tokens JWT
         localStorage.setItem('user', JSON.stringify(response.user));
-        localStorage.setItem('accessToken', response.accessToken); // Nouveau: Sauvegarder le JWT
+        localStorage.setItem('accessToken', response.accessToken);
+        localStorage.setItem('refreshToken', response.refreshToken); // Nouveau: refresh token
         saveUserToCookie(response.user);
         return { success: true };
       }
@@ -74,9 +75,10 @@ export const AuthProvider = ({ children }) => {
       const response = await authAPI.register(userData);
       if (response.success && response.user) {
         setUser(response.user);
-        // Sauvegarder l'utilisateur et le token JWT
+        // Sauvegarder l'utilisateur et les deux tokens JWT
         localStorage.setItem('user', JSON.stringify(response.user));
-        localStorage.setItem('accessToken', response.accessToken); // Nouveau: Sauvegarder le JWT
+        localStorage.setItem('accessToken', response.accessToken);
+        localStorage.setItem('refreshToken', response.refreshToken); // Nouveau: refresh token
         saveUserToCookie(response.user);
         return { success: true };
       }
@@ -91,7 +93,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      // Appeler l'API pour supprimer le cookie côté serveur
+      // Appeler l'API pour notifier le serveur
       await authAPI.logout();
     } catch (error) {
       console.error('Error during logout:', error);
@@ -99,7 +101,8 @@ export const AuthProvider = ({ children }) => {
       // Nettoyer côté client
       setUser(null);
       localStorage.removeItem('user');
-      localStorage.removeItem('accessToken'); // Nouveau: Supprimer le JWT
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken'); // Nouveau: supprimer refresh token
       removeUserFromCookie();
     }
   };

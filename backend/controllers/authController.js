@@ -53,28 +53,12 @@ export const login = async (req, res) => {
     // Ne pas retourner le mot de passe
     const { password: _, ...userWithoutPassword } = user;
     
-    // Stocker le refresh token dans un cookie httpOnly sécurisé
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true, // Pas accessible en JavaScript (sécurité)
-      secure: true, // HTTPS obligatoire (production Render)
-      sameSite: 'none', // Permet cross-domain (Vercel → Render)
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
-    });
-    
-    // Compatibilité: garder aussi le cookie user pour l'ancien système
-    res.cookie('user', JSON.stringify(userWithoutPassword), {
-      httpOnly: false,
-      secure: true,
-      sameSite: 'none', // Permet cross-domain
-      maxAge: 24 * 60 * 60 * 1000
-    });
-    
     res.json({
       success: true,
       message: 'Connexion réussie',
       user: userWithoutPassword,
       accessToken,
-      // Ne pas renvoyer le refreshToken dans le body (déjà dans le cookie)
+      refreshToken // Retourner aussi le refresh token dans le body
     });
   } catch (error) {
     logger.error('Login error:', error);
@@ -139,27 +123,12 @@ export const register = async (req, res) => {
     
     const { password: _, ...userWithoutPassword } = newUser;
     
-    // Stocker le refresh token dans un cookie httpOnly sécurisé
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: true, // HTTPS obligatoire (production Render)
-      sameSite: 'none', // Permet cross-domain (Vercel → Render)
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
-    });
-    
-    // Compatibilité
-    res.cookie('user', JSON.stringify(userWithoutPassword), {
-      httpOnly: false,
-      secure: true,
-      sameSite: 'none', // Permet cross-domain
-      maxAge: 24 * 60 * 60 * 1000
-    });
-    
     res.status(201).json({
       success: true,
       message: 'Inscription réussie',
       user: userWithoutPassword,
       accessToken,
+      refreshToken // Retourner aussi le refresh token dans le body
     });
   } catch (error) {
     logger.error('Registration error:', error);
@@ -171,24 +140,13 @@ export const register = async (req, res) => {
   }
 };
 
-// Déconnexion - Supprime les cookies
+// Déconnexion - Plus besoin de supprimer les cookies
 export const logout = async (req, res) => {
   try {
     const userId = req.user?.id || 'unknown';
     logger.info(`User ${userId} logged out`);
     
-    // Supprimer les cookies avec les mêmes options que lors de leur création
-    res.clearCookie('user', {
-      httpOnly: false,
-      secure: true,
-      sameSite: 'none'
-    });
-    res.clearCookie('refreshToken', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none'
-    });
-    
+    // Le client supprimera les tokens du localStorage
     res.json({
       success: true,
       message: 'Déconnexion réussie'
@@ -254,20 +212,20 @@ export const checkAuth = async (req, res) => {
 
 /**
  * Rafraîchir l'access token avec le refresh token
- * Le refresh token doit être dans le cookie httpOnly
+ * Le refresh token est maintenant reçu dans le body
  */
 export const refreshToken = async (req, res) => {
   try {
-    const refreshTokenCookie = req.cookies.refreshToken;
+    const { refreshToken } = req.body;
     
-    if (!refreshTokenCookie) {
+    if (!refreshToken) {
       return res.status(401).json({
         success: false,
         message: 'Refresh token manquant'
       });
     }
     
-    const { valid, decoded, error } = verifyRefreshToken(refreshTokenCookie);
+    const { valid, decoded, error } = verifyRefreshToken(refreshToken);
     
     if (!valid) {
       logSecurity.invalidToken(req.ip, `Invalid refresh token: ${error}`);

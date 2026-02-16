@@ -37,10 +37,20 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // Tenter de rafraîchir le token
+        // Récupérer le refresh token du localStorage
+        const refreshToken = localStorage.getItem('refreshToken');
+        
+        if (!refreshToken) {
+          throw new Error('No refresh token available');
+        }
+
+        // Tenter de rafraîchir le token avec le refresh token dans le body
         const response = await fetch(`${API_URL}/auth/refresh`, {
           method: 'POST',
-          credentials: 'include', // Envoie le refresh token cookie
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ refreshToken }),
         });
 
         if (response.ok) {
@@ -55,6 +65,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         // Échec du refresh = déconnexion
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
         window.location.href = '/login';
         return Promise.reject(refreshError);
