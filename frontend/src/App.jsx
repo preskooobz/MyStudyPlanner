@@ -3,7 +3,6 @@ import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { NotificationProvider } from './context/NotificationContext';
-import CookieConsent from './components/CookieConsent';
 import PrivateRoute from './routes/PrivateRoute';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -20,7 +19,6 @@ function App() {
         <AuthProvider>
           <NotificationProvider>
             <Router>
-              <CookieConsent />
               <Routes>
             <Route path="/login" element={<LoginPage />} />
           
