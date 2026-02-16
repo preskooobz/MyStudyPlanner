@@ -122,4 +122,3 @@ app.listen(PORT, () => {
   logger.info(`📝 Logging activé: Winston + Morgan`);
   console.log(`\n✅ Server ready on port ${PORT}\n`);
 });
-});
