@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Plus } from 'lucide-react';
@@ -16,6 +16,14 @@ const CreateTaskPage = () => {
   const { toast } = useToast();
   const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
+
+  // Bloquer l'accès pour les admins - ils ne peuvent pas créer de tâches
+  useEffect(() => {
+    if (user && user.role === 'admin') {
+      toast.error('Les administrateurs ne peuvent pas créer de tâches. Vous gérez uniquement les tâches des étudiants.', 'Accès refusé');
+      navigate('/tasks');
+    }
+  }, [user, navigate, toast]);
 
   const handleSubmit = async (formData) => {
     setIsLoading(true);

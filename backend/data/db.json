@@ -4,7 +4,7 @@
       "id": 1,
       "username": "admin",
       "email": "admin@mystudyplanner.com",
-      "password": "admin123",
+      "password": "$2b$10$rkQ0niVlysQrr4DqU6fFIOOo0Jy5mDeX.4gzUxMJIwYUdNY4LCO26",
       "fullName": "Admin User",
       "role": "admin",
       "createdAt": "2026-02-14T10:00:00.000Z"
@@ -13,12 +13,24 @@
       "id": 2,
       "username": "etudiant",
       "email": "etudiant@mystudyplanner.com",
-      "password": "etudiant123",
+      "password": "$2b$10$w30IlF9ly4MzxIV/eFE4TOqZ6NeUAIt9O8lRfAe2XHnFayFWL9uxS",
       "fullName": "Jean Dupont",
       "role": "student",
       "createdAt": "2026-02-14T10:00:00.000Z"
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "id": 1,
+      "userId": 2,
+      "title": "Valid Task Title",
+      "description": "This is a valid description",
+      "subject": "Mathematics",
+      "priority": "medium",
+      "status": "pending",
+      "dueDate": "2026-12-31T00:00:00.000Z",
+      "createdAt": "2026-02-16T03:00:05.598Z"
+    }
+  ],
   "notifications": []
 }

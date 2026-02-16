@@ -7,7 +7,8 @@ import {
   deleteTask,
   getTaskStats
 } from '../controllers/taskController.js';
-import { validateTask } from '../middleware/validateTask.js';
+import { taskValidationRules, validateTask } from '../middleware/validateTask.js';
+import { isStudentOnly } from '../middleware/checkRole.js';
 
 const router = express.Router();
 
@@ -20,11 +21,11 @@ router.get('/', getAllTasks);
 // GET /api/tasks/:id
 router.get('/:id', getTaskById);
 
-// POST /api/tasks
-router.post('/', validateTask, createTask);
+// POST /api/tasks - UNIQUEMENT pour les étudiants (pas les admins)
+router.post('/', isStudentOnly, taskValidationRules, validateTask, createTask);
 
 // PUT /api/tasks/:id
-router.put('/:id', updateTask);
+router.put('/:id', taskValidationRules, validateTask, updateTask);
 
 // DELETE /api/tasks/:id
 router.delete('/:id', deleteTask);

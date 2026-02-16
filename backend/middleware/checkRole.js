@@ -31,3 +31,7 @@ export const isAdmin = checkRole('admin');
 
 // Middleware pour vérifier si l'utilisateur est étudiant ou admin
 export const isStudent = checkRole('student', 'admin');
+
+// Middleware pour vérifier si l'utilisateur est UNIQUEMENT étudiant (pas admin)
+// Utilisé pour les actions que seuls les étudiants peuvent faire (ex: créer des tâches)
+export const isStudentOnly = checkRole('student');

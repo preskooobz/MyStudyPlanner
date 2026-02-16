@@ -159,14 +159,17 @@ const TasksPage = () => {
               }
             </p>
           </div>
-          <Button
-            variant="primary"
-            onClick={() => navigate('/tasks/new')}
-            className="flex items-center gap-2 w-full sm:w-auto"
-          >
-            <Plus className="w-5 h-5" />
-            Nouvelle tâche
-          </Button>
+          {/* Seuls les étudiants peuvent créer des tâches */}
+          {user.role !== 'admin' && (
+            <Button
+              variant="primary"
+              onClick={() => navigate('/tasks/new')}
+              className="flex items-center gap-2 w-full sm:w-auto"
+            >
+              <Plus className="w-5 h-5" />
+              Nouvelle tâche
+            </Button>
+          )}
         </div>
 
         {/* Filters */}
@@ -188,10 +191,10 @@ const TasksPage = () => {
             <p className="text-gray-600 mb-6"
                style={{ color: theme === 'dark' ? '#9ca3af' : '#4b5563' }}>
               {tasks.length === 0
-                ? 'Commencez par créer votre première tâche'
+                ? (user.role === 'admin' ? 'Aucune tâche n\'a été créée par les étudiants' : 'Commencez par créer votre première tâche')
                 : 'Essayez de modifier vos filtres'}
             </p>
-            {tasks.length === 0 && (
+            {tasks.length === 0 && user.role !== 'admin' && (
               <Button
                 variant="primary"
                 onClick={() => navigate('/tasks/new')}

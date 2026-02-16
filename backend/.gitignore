@@ -2,5 +2,13 @@ node_modules/
 *.log
 .env
 
+# Logs Winston
+logs/
+*.log.*
+
+# Test coverage
+coverage/
+.nyc_output/
+
 # Base de données de développement (données temporaires)
 # data/db.json  ← Commenté pour permettre le push initial

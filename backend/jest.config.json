@@ -1,0 +1,14 @@
+{
+  "testEnvironment": "node",
+  "transform": {},
+  "testMatch": ["**/tests/**/*.test.js"],
+  "collectCoverageFrom": [
+    "controllers/**/*.js",
+    "middleware/**/*.js",
+    "config/**/*.js",
+    "!**/node_modules/**"
+  ],
+  "coverageDirectory": "coverage",
+  "verbose": true,
+  "testTimeout": 10000
+}

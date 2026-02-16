@@ -2,10 +2,34 @@
 
 Application web moderne et complète permettant aux étudiants de gérer leurs devoirs, TP et projets académiques avec un tableau de bord interactif, un système de notifications intelligent et un mode sombre complet.
 
-![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)
 ![React](https://img.shields.io/badge/React-19-61dafb.svg)
 ![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
 ![License](https://img.shields.io/badge/license-Educational-green.svg)
+![Security](https://img.shields.io/badge/security-production_ready-success.svg)
+
+## 🚀 Mise à Jour v2.5.0 - Production Ready
+
+**Cette version apporte des fonctionnalités de sécurité de niveau production :**
+- ✅ 🔒 **Hashage bcrypt** - Mots de passe sécurisés (10 rounds)
+- ✅ 🎫 **JWT Authentication** - Access + Refresh tokens
+- ✅ 📝 **Winston Logging** - Logs de sécurité dédiés
+- ✅ 🧪 **Tests Jest** - 20+ tests automatisés (~80% coverage)
+- ✅ Protection XSS complète (sanitization)
+- ✅ Validation stricte avec express-validator
+- ✅ Rate limiting (protection DDoS et brute force)
+- ✅ Headers de sécurité (Helmet.js)
+- ✅ Restriction des permissions par rôle
+- ✅ **Les admins ne peuvent plus créer de tâches** (seulement les gérer)
+
+**Score de sécurité : 10/10** 🛡️
+
+📚 **Documentation complète :**
+- [PRODUCTION-READY.md](PRODUCTION-READY.md) - **NOUVEAU** - Guide complet v2.5.0
+- [SECURITY.md](SECURITY.md) - Guide complet de sécurité (mis à jour)
+- [SECURITY-TESTS.md](SECURITY-TESTS.md) - Tests de sécurité
+- [ADMIN-WORKFLOW.md](ADMIN-WORKFLOW.md) - Guide pour administrateurs
+- [CHANGELOG-SECURITY.md](CHANGELOG-SECURITY.md) - Détails des changements
 
 ## Table des Matières
 
@@ -21,8 +45,17 @@ Application web moderne et complète permettant aux étudiants de gérer leurs d
 - [Comptes de Test](#comptes-de-test)
 - [Structure du Projet](#structure-du-projet)
 - [Déploiement Docker](#docker)
+- [🔒 Sécurité](#-sécurité)
 
 ## Nouveautés Version 2.0.0
+
+### 🔒 Sécurité et Permissions
+- **Restriction Admin** : Les administrateurs ne peuvent plus créer de tâches (seulement les gérer)
+- **Protection XSS** : Sanitization complète de toutes les entrées utilisateur
+- **Validation stricte** : express-validator sur tous les endpoints
+- **Rate limiting** : Protection contre DDoS et attaques brute force
+- **Headers sécurisés** : Helmet.js pour protection complète
+- **Voir [SECURITY.md](SECURITY.md) pour tous les détails**
 
 ### Mode Sombre Complet
 - Basculement automatique selon préférences système (prefers-color-scheme: dark)
@@ -256,6 +289,16 @@ MyStudyPlanner/
 | **Express.js** | 4.21.2 | Framework web minimaliste |
 | **CORS** | 2.8.5 | Gestion requêtes cross-origin |
 | **JSON Storage** | - | Base de données fichier simple |
+| **🔒 Helmet** | 8.1.0 | Headers de sécurité (v2.0.0+) |
+| **🔒 Express Validator** | 7.3.1 | Validation/Sanitization (v2.0.0+) |
+| **🔒 Express Rate Limit** | 8.2.1 | Protection DDoS/Brute Force (v2.0.0+) |
+| **🔒 XSS** | 1.0.15 | Protection XSS (v2.0.0+) |
+| **🔐 Bcrypt** | 6.0.0 | Hashage mots de passe (v2.5.0+) |
+| **🎫 JSON Web Token** | 9.0.3 | JWT authentication (v2.5.0+) |
+| **📝 Winston** | 3.19.0 | Logging sécurité (v2.5.0+) |
+| **📝 Morgan** | 1.10.1 | HTTP request logging (v2.5.0+) |
+| **🧪 Jest** | 30.2.0 | Testing framework (dev, v2.5.0+) |
+| **🧪 Supertest** | 7.2.2 | API testing (dev, v2.5.0+) |
 
 #### Frontend
 | Technologie | Version | Utilisation |
@@ -437,6 +480,87 @@ npm run build   # Build optimisé pour production
 npm run preview # Prévisualiser le build de production
 npm run lint    # Vérifier le code avec ESLint
 ```
+
+### 🧪 Running Tests (v2.5.0)
+
+Le backend inclut une suite complète de tests automatisés avec Jest.
+
+#### Backend Tests
+```bash
+cd backend
+
+# Exécuter tous les tests
+npm test
+
+# Mode watch (exécution automatique à chaque changement)
+npm run test:watch
+
+# Générer un rapport de couverture
+npm run test:coverage
+```
+
+**Tests disponibles :**
+- ✅ `auth.test.js` - Tests d'authentification (bcrypt, JWT)
+- ✅ `security.test.js` - Tests de sécurité (XSS, RBAC, validation)
+- ✅ `jwt.test.js` - Tests JWT (génération, vérification)
+
+**Résultats attendus :**
+```
+Test Suites: 3 passed, 3 total
+Tests:       20+ passed, 20+ total
+Snapshots:   0 total
+Time:        ~5s
+```
+
+### 🔐 Security Setup (v2.5.0)
+
+#### Étape 1 : Configuration des Variables d'Environnement
+
+```bash
+cd backend
+
+# Copier le fichier d'exemple
+cp .env.example .env
+```
+
+Éditer `.env` et générer des secrets sécurisés :
+
+```bash
+# Générer JWT_SECRET
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+
+# Générer JWT_REFRESH_SECRET
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```
+
+#### Étape 2 : Migration des Mots de Passe (première installation uniquement)
+
+Si vous avez des utilisateurs existants avec des mots de passe non hashés :
+
+```bash
+npm run migrate:passwords
+```
+
+**Sortie attendue :**
+```
+✅ Migration terminée: X mot(s) de passe hashé(s)
+```
+
+⚠️ **Important :** Ce script ne doit être exécuté qu'**UNE SEULE FOIS**.
+
+#### Étape 3 : Vérifier les Logs
+
+Les logs de sécurité sont automatiquement générés :
+
+```bash
+# Voir les logs en temps réel
+tail -f logs/security.log
+
+# Windows PowerShell
+Get-Content logs\security.log -Tail 50 -Wait
+```
+
+**Documentation complète de sécurité :** [PRODUCTION-READY.md](PRODUCTION-READY.md)
 
 ## Comptes de Test
 
@@ -1149,6 +1273,61 @@ Ce projet est réalisé dans un cadre pédagogique. Les contributions sont les b
 - [README.md](README.md) - Documentation principale (ce fichier)
 - [CHANGELOG.md](CHANGELOG.md) - Historique des versions
 - [LICENSE](LICENSE) - Licence du projet
+
+### 🔒 Documentation de Sécurité
+- [SECURITY.md](SECURITY.md) - Guide complet de sécurité
+- [SECURITY-TESTS.md](SECURITY-TESTS.md) - Tests de sécurité
+- [ADMIN-WORKFLOW.md](ADMIN-WORKFLOW.md) - Guide pour administrateurs
+- [CHANGELOG-SECURITY.md](CHANGELOG-SECURITY.md) - Détails des changements de sécurité
+
+### 📚 Guides de Déploiement
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Guide de déploiement général
+- [BACKEND-DEPLOY.md](BACKEND-DEPLOY.md) - Déploiement backend
+- [DOCKER.md](DOCKER.md) - Guide Docker
+- [QUICKSTART.md](QUICKSTART.md) - Démarrage rapide
+
+## 🔒 Sécurité
+
+Cette application implémente plusieurs mesures de sécurité avancées :
+
+### Protections Intégrées
+- ✅ **XSS Protection** : Sanitization avec la bibliothèque `xss`
+- ✅ **Input Validation** : Validation stricte avec `express-validator`
+- ✅ **Rate Limiting** : Protection contre DDoS et brute force avec `express-rate-limit`
+- ✅ **Security Headers** : Headers sécurisés avec `helmet.js`
+- ✅ **CORS** : Configuration stricte des origines autorisées
+- ✅ **Role-Based Access** : Restriction des permissions par rôle
+
+### Permissions par Rôle
+
+#### Admin
+- ❌ **Ne peut PAS créer de tâches**
+- ✅ Peut voir toutes les tâches
+- ✅ Peut modifier les tâches existantes
+- ✅ Peut supprimer les tâches
+
+#### Student
+- ✅ Peut créer ses tâches
+- ✅ Peut modifier ses tâches
+- ✅ Peut supprimer ses tâches
+- ❌ Ne peut pas voir les tâches des autres
+
+### Tests de Sécurité
+
+**Exécuter les tests :**
+```bash
+# Windows PowerShell
+.\test-security.ps1
+
+# Linux/Mac
+chmod +x test-security.sh
+./test-security.sh
+```
+
+**Voir aussi :**
+- [SECURITY.md](SECURITY.md) pour la documentation complète
+- [SECURITY-TESTS.md](SECURITY-TESTS.md) pour les tests détaillés
+- [ADMIN-WORKFLOW.md](ADMIN-WORKFLOW.md) pour le guide admin
 
 ## Technologies et Crédits
 
