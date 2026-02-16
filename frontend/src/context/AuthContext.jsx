@@ -54,8 +54,9 @@ export const AuthProvider = ({ children }) => {
       const response = await authAPI.login(credentials);
       if (response.success && response.user) {
         setUser(response.user);
-        // Sauvegarder dans localStorage et cookie
+        // Sauvegarder l'utilisateur et le token JWT
         localStorage.setItem('user', JSON.stringify(response.user));
+        localStorage.setItem('accessToken', response.accessToken); // Nouveau: Sauvegarder le JWT
         saveUserToCookie(response.user);
         return { success: true };
       }
@@ -73,8 +74,9 @@ export const AuthProvider = ({ children }) => {
       const response = await authAPI.register(userData);
       if (response.success && response.user) {
         setUser(response.user);
-        // Sauvegarder dans localStorage et cookie
+        // Sauvegarder l'utilisateur et le token JWT
         localStorage.setItem('user', JSON.stringify(response.user));
+        localStorage.setItem('accessToken', response.accessToken); // Nouveau: Sauvegarder le JWT
         saveUserToCookie(response.user);
         return { success: true };
       }
@@ -97,6 +99,7 @@ export const AuthProvider = ({ children }) => {
       // Nettoyer côté client
       setUser(null);
       localStorage.removeItem('user');
+      localStorage.removeItem('accessToken'); // Nouveau: Supprimer le JWT
       removeUserFromCookie();
     }
   };

@@ -29,12 +29,8 @@ const CreateTaskPage = () => {
     setIsLoading(true);
 
     try {
-      const taskData = {
-        ...formData,
-        userId: user.id,
-      };
-
-      const response = await tasksAPI.createTask(taskData);
+      // Ne plus envoyer userId - il vient du JWT (req.user.id)
+      const response = await tasksAPI.createTask(formData);
 
       if (response.success) {
         toast.success('Tâche créée avec succès !', 'Succès');

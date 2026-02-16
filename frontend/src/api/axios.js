@@ -14,7 +14,11 @@ const api = axios.create({
 // Intercepteur de requêtes
 api.interceptors.request.use(
   (config) => {
-    // Vous pouvez ajouter un token d'authentification ici si nécessaire
+    // Ajouter le token JWT à chaque requête si disponible
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -25,7 +29,38 @@ api.interceptors.request.use(
 // Intercepteur de réponses
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Si 401 Unauthorized et on n'a pas déjà tenté de refresh
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        // Tenter de rafraîchir le token
+        const response = await fetch(`${API_URL}/auth/refresh`, {
+          method: 'POST',
+          credentials: 'include', // Envoie le refresh token cookie
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // Sauvegarder le nouveau access token
+          localStorage.setItem('accessToken', data.accessToken);
+          
+          // Réessayer la requête originale avec le nouveau token
+          originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+          return api(originalRequest);
+        }
+      } catch (refreshError) {
+        // Échec du refresh = déconnexion
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
+      }
+    }
+
     // Ne pas rediriger automatiquement sur 401
     // Laisser les composants gérer les erreurs
     return Promise.reject(error);
