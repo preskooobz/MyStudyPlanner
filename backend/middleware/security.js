@@ -35,6 +35,7 @@ export const generalLimiter = rateLimit({
   },
   standardHeaders: true, // Retourne les infos de rate limit dans les headers `RateLimit-*`
   legacyHeaders: false, // Désactive les headers `X-RateLimit-*`
+  trustProxy: true, // Trust proxy pour Render, Heroku, etc.
 });
 
 /**
@@ -52,6 +53,7 @@ export const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   skipSuccessfulRequests: false, // Compter même les requêtes réussies
+  trustProxy: true, // Trust proxy pour Render, Heroku, etc.
 });
 
 /**
@@ -67,6 +69,7 @@ export const createLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: true, // Trust proxy pour Render, Heroku, etc.
 });
 
 /**

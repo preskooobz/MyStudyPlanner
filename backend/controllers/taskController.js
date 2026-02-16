@@ -88,12 +88,15 @@ export const getTaskById = async (req, res) => {
 // POST /api/tasks
 export const createTask = async (req, res) => {
   try {
-    const { userId, title, description, subject, priority, dueDate } = req.body;
+    const { title, description, subject, priority, dueDate } = req.body;
     const db = readDatabase();
+    
+    // Utiliser req.user.id (depuis JWT) ou fallback sur req.body.userId
+    const userId = req.user?.id || req.body.userId || 1;
     
     const newTask = {
       id: db.tasks.length > 0 ? Math.max(...db.tasks.map(t => t.id)) + 1 : 1,
-      userId: userId || 1,
+      userId,
       title,
       description: description || '',
       subject,

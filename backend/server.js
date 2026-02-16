@@ -22,6 +22,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ========================================
+// CONFIGURATION
+// ========================================
+
+// Trust proxy - Nécessaire pour Render, Heroku, et autres plateformes derrière un proxy
+// Permet à express-rate-limit d'identifier correctement les utilisateurs via X-Forwarded-For
+app.set('trust proxy', 1);
+
+// ========================================
 // LOGGING
 // ========================================
 
