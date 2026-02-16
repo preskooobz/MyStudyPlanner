@@ -32,6 +32,13 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    // Ne pas essayer de refresh sur les routes d'auth (login, register, refresh)
+    if (originalRequest.url?.includes('/auth/login') || 
+        originalRequest.url?.includes('/auth/register') ||
+        originalRequest.url?.includes('/auth/refresh')) {
+      return Promise.reject(error);
+    }
+
     // Si 401 Unauthorized et on n'a pas déjà tenté de refresh
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -67,7 +74,11 @@ api.interceptors.response.use(
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
-        window.location.href = '/login';
+        
+        // Ne rediriger que si on n'est pas déjà sur /login ou /register (évite boucle infinie)
+        if (!window.location.pathname.includes('/login') && !window.location.pathname.includes('/register')) {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       }
     }
