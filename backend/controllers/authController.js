@@ -56,16 +56,16 @@ export const login = async (req, res) => {
     // Stocker le refresh token dans un cookie httpOnly sécurisé
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true, // Pas accessible en JavaScript (sécurité)
-      secure: process.env.NODE_ENV === 'production', // HTTPS en production
-      sameSite: 'strict',
+      secure: true, // HTTPS obligatoire (production Render)
+      sameSite: 'none', // Permet cross-domain (Vercel → Render)
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
     });
     
     // Compatibilité: garder aussi le cookie user pour l'ancien système
     res.cookie('user', JSON.stringify(userWithoutPassword), {
       httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none', // Permet cross-domain
       maxAge: 24 * 60 * 60 * 1000
     });
     
@@ -142,16 +142,16 @@ export const register = async (req, res) => {
     // Stocker le refresh token dans un cookie httpOnly sécurisé
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true, // HTTPS obligatoire (production Render)
+      sameSite: 'none', // Permet cross-domain (Vercel → Render)
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
     });
     
     // Compatibilité
     res.cookie('user', JSON.stringify(userWithoutPassword), {
       httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none', // Permet cross-domain
       maxAge: 24 * 60 * 60 * 1000
     });
     
@@ -177,8 +177,18 @@ export const logout = async (req, res) => {
     const userId = req.user?.id || 'unknown';
     logger.info(`User ${userId} logged out`);
     
-    res.clearCookie('user');
-    res.clearCookie('refreshToken');
+    // Supprimer les cookies avec les mêmes options que lors de leur création
+    res.clearCookie('user', {
+      httpOnly: false,
+      secure: true,
+      sameSite: 'none'
+    });
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none'
+    });
+    
     res.json({
       success: true,
       message: 'Déconnexion réussie'

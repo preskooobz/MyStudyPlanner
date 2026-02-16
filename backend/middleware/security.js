@@ -40,19 +40,19 @@ export const generalLimiter = rateLimit({
 
 /**
  * Rate limiting strict pour les routes d'authentification
- * Limite: 5 tentatives par 15 minutes par IP
+ * Limite: 20 tentatives par 15 minutes par IP (augmenté pour production)
  * Protection contre les attaques bruteforce
  */
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limite de 5 requêtes par fenêtre
+  max: 20, // Limite de 20 requêtes par fenêtre (augmenté pour /refresh automatique)
   message: {
     success: false,
     message: 'Trop de tentatives de connexion. Veuillez réessayer dans 15 minutes.',
   },
   standardHeaders: true,
   legacyHeaders: false,
-  skipSuccessfulRequests: false, // Compter même les requêtes réussies
+  skipSuccessfulRequests: true, // Ne compter que les échecs (important pour /refresh)
   trustProxy: true, // Trust proxy pour Render, Heroku, etc.
 });
 
