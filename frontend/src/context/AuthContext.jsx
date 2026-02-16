@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from '../api/authAPI';
-import { getUserFromCookie, saveUserToCookie, removeUserFromCookie } from '../utils/cookies';
 
 const AuthContext = createContext();
 
@@ -17,29 +16,14 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Vérifier si un utilisateur est déjà connecté via cookie ou localStorage
+    // Vérifier si un utilisateur est déjà connecté via localStorage
     const initAuth = async () => {
       try {
-        // D'abord vérifier le cookie
-        const userFromCookie = getUserFromCookie();
-        if (userFromCookie) {
-          setUser(userFromCookie);
-          localStorage.setItem('user', JSON.stringify(userFromCookie));
-          setLoading(false);
-          return;
-        }
-
-        // Sinon vérifier localStorage (fallback)
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser);
           setUser(parsedUser);
-          saveUserToCookie(parsedUser);
-          setLoading(false);
-          return;
         }
-
-        // Pas d'utilisateur stocké = pas connecté
         setLoading(false);
       } catch (error) {
         console.error('Error initializing auth:', error);
@@ -57,8 +41,7 @@ export const AuthProvider = ({ children }) => {
         // Sauvegarder l'utilisateur et les deux tokens JWT
         localStorage.setItem('user', JSON.stringify(response.user));
         localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken); // Nouveau: refresh token
-        saveUserToCookie(response.user);
+        localStorage.setItem('refreshToken', response.refreshToken);
         return { success: true };
       }
       return { success: false, message: response.message };
@@ -78,8 +61,7 @@ export const AuthProvider = ({ children }) => {
         // Sauvegarder l'utilisateur et les deux tokens JWT
         localStorage.setItem('user', JSON.stringify(response.user));
         localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken); // Nouveau: refresh token
-        saveUserToCookie(response.user);
+        localStorage.setItem('refreshToken', response.refreshToken);
         return { success: true };
       }
       return { success: false, message: response.message };
@@ -102,8 +84,7 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       localStorage.removeItem('user');
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken'); // Nouveau: supprimer refresh token
-      removeUserFromCookie();
+      localStorage.removeItem('refreshToken');
     }
   };
 

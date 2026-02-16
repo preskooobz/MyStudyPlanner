@@ -161,44 +161,43 @@ export const logout = async (req, res) => {
   }
 };
 
-// Vérifier l'authentification via le cookie OU le token JWT
+// Vérifier l'authentification via le token JWT uniquement
 export const checkAuth = async (req, res) => {
   try {
-    // Vérifier d'abord le JWT (nouveau système)
+    // Vérifier le JWT
     const authHeader = req.headers['authorization'];
-    if (authHeader) {
-      const token = authHeader.split(' ')[1];
-      if (token) {
-        const { verifyAccessToken } = await import('../config/jwt.js');
-        const { valid, decoded } = verifyAccessToken(token);
-        
-        if (valid) {
-          return res.json({
-            success: true,
-            authenticated: true,
-            user: decoded
-          });
-        }
-      }
-    }
-    
-    // Fallback: vérifier le cookie (ancien système - compatibilité)
-    const userCookie = req.cookies.user;
-    
-    if (!userCookie) {
+    if (!authHeader) {
       return res.status(401).json({
         success: false,
         message: 'Non authentifié',
         authenticated: false
       });
     }
+
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Token manquant',
+        authenticated: false
+      });
+    }
+
+    const { verifyAccessToken } = await import('../config/jwt.js');
+    const { valid, decoded } = verifyAccessToken(token);
     
-    const user = JSON.parse(userCookie);
-    
-    res.json({
+    if (!valid) {
+      return res.status(401).json({
+        success: false,
+        message: 'Token invalide',
+        authenticated: false
+      });
+    }
+
+    return res.json({
       success: true,
       authenticated: true,
-      user
+      user: decoded
     });
   } catch (error) {
     logger.error('Check auth error:', error);

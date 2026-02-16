@@ -1,6 +1,5 @@
 import request from 'supertest';
 import express from 'express';
-import cookieParser from 'cookie-parser';
 import authRoutes from '../routes/authRoutes.js';
 import { readDatabase, writeDatabase } from '../models/database.js';
 import bcrypt from 'bcrypt';
@@ -8,7 +7,6 @@ import bcrypt from 'bcrypt';
 // Créer une app de test
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 
 describe('Authentication API', () => {
@@ -135,11 +133,7 @@ describe('Authentication API', () => {
       expect(response.body.user).toBeDefined();
       expect(response.body.user.username).toBe('logintest');
       expect(response.body.accessToken).toBeDefined();
-      
-      // Vérifier que le refresh token est dans les cookies
-      const cookies = response.headers['set-cookie'];
-      expect(cookies).toBeDefined();
-      expect(cookies.some(cookie => cookie.includes('refreshToken'))).toBe(true);
+      expect(response.body.refreshToken).toBeDefined(); // Vérifier le refreshToken dans le body
     });
 
     it('devrait rejeter un mot de passe incorrect', async () => {
@@ -240,14 +234,14 @@ describe('Authentication API', () => {
         })
         .expect(200);
 
-      // Extraire le refresh token du cookie
-      const cookies = loginResponse.headers['set-cookie'];
-      const refreshTokenCookie = cookies.find(cookie => cookie.includes('refreshToken'));
+      // Extraire le refresh token du body
+      const refreshToken = loginResponse.body.refreshToken;
+      expect(refreshToken).toBeDefined();
 
       // Utiliser le refresh token pour obtenir un nouveau access token
       const refreshResponse = await request(app)
         .post('/api/auth/refresh')
-        .set('Cookie', refreshTokenCookie)
+        .send({ refreshToken })
         .expect(200);
 
       expect(refreshResponse.body.success).toBe(true);
@@ -266,17 +260,13 @@ describe('Authentication API', () => {
   });
 
   describe('POST /api/auth/logout', () => {
-    it('devrait supprimer les cookies lors de la déconnexion', async () => {
+    it('devrait se déconnecter avec succès', async () => {
       const response = await request(app)
         .post('/api/auth/logout')
         .expect(200);
 
       expect(response.body.success).toBe(true);
-      
-      const cookies = response.headers['set-cookie'];
-      expect(cookies).toBeDefined();
-      // Les cookies doivent être marqués pour suppression
-      expect(cookies.some(cookie => cookie.includes('user=;'))).toBe(true);
+      expect(response.body.message).toContain('Déconnexion');
     });
   });
 });

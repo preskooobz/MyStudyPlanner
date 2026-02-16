@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import authRoutes from './routes/authRoutes.js';
@@ -77,7 +76,6 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-app.use(cookieParser());
 app.use(express.json({ limit: '10mb' })); // Limite de taille du payload
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
