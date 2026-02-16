@@ -8,29 +8,8 @@
       "fullName": "Admin User",
       "role": "admin",
       "createdAt": "2026-02-14T10:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "username": "etudiant",
-      "email": "etudiant@mystudyplanner.com",
-      "password": "$2b$10$w30IlF9ly4MzxIV/eFE4TOqZ6NeUAIt9O8lRfAe2XHnFayFWL9uxS",
-      "fullName": "Jean Dupont",
-      "role": "student",
-      "createdAt": "2026-02-14T10:00:00.000Z"
     }
   ],
-  "tasks": [
-    {
-      "id": 1,
-      "userId": 2,
-      "title": "Valid Task Title",
-      "description": "This is a valid description",
-      "subject": "Mathematics",
-      "priority": "medium",
-      "status": "pending",
-      "dueDate": "2026-12-31T00:00:00.000Z",
-      "createdAt": "2026-02-16T03:00:05.598Z"
-    }
-  ],
+  "tasks": [],
   "notifications": []
 }
