@@ -21,7 +21,7 @@ export const authenticateToken = (req, res, next) => {
 
   if (!valid) {
     logSecurity.invalidToken(req.ip, error);
-    return res.status(403).json({
+    return res.status(401).json({
       success: false,
       message: 'Token invalide ou expiré',
       error,

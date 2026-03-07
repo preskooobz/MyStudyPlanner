@@ -88,7 +88,7 @@ const TaskCard = ({ task, onEdit, onDelete, onToggleStatus, showUserId = false }
           <Button
             variant="danger"
             className="px-3 py-1.5 text-sm"
-            onClick={() => onDelete(task)}
+            onClick={() => onDelete(task.id)}
           >
             <Trash2 className="w-4 h-4" />
           </Button>
